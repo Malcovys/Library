@@ -1,14 +1,13 @@
 <?php
-require_once('App/Autoloader.php');
-\App\Autoloader::register();
+header("Content-Type: application/json");
 
-use App\Lib\Router;
+require './App/Models/AdherentRepository.php';
+require './App/Controllers/AdherentController.php';
+
+require './App/Lib/DatabaseConnection.php';
 
 
-$routes = [];
+require './App/Lib/functions.php';
 
-Router::route('/', function () {
-    echo "Home Page";
-});
+require 'router.php';
 
-Router::run();

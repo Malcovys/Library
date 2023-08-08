@@ -1,8 +1,8 @@
 {
     "database": {
-        "host":"",
-        "name":"",
-        "user":"",
-        "password":""
+        "host":"localhost",
+        "name":"library",
+        "user":"bonely",
+        "password":"Bonely12;"
     }
 }

@@ -1,11 +1,10 @@
 <?php
-namespace API\Lib;
 
 class DatabaseConnection
 {
-    public ?\PDO $database = null;
+    public ?PDO $database = null;
 
-    function getConnection(): \PDO
+    function getConnection(): PDO
     {
         if ($this->database === null) {
 
@@ -13,7 +12,7 @@ class DatabaseConnection
             $data = json_decode($file, true);
             $db = $data['database'];
 
-            $this->database = new \PDO(
+            $this->database = new PDO(
                 'mysql:host='.$db['host'].';dbname='.$db['name'].';charset=utf8',
                 $db['user'],
                 $db['password']

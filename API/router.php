@@ -1,16 +1,22 @@
 <?php
 
-$uri = parse_url($_SERVER['REQUEST_URI'])['path'];
+$uri = $_SERVER['REQUEST_URI'];
 
 $routes = [
-    '/' => 'nothing',
-    '/login' => 'Hey',
-    '/auth' => auth(),
+    '/auth' => 'auth',
 ];
 
 function routeToController($uri, $routes) {
+
     if (array_key_exists($uri, $routes)) {
-        $routes[$uri];
+        $controller = $routes[$uri];
+
+        $response = $controller();
+
+        header("Content-Type: application/json");
+        
+        echo json_encode($response, JSON_PRETTY_PRINT);
+
     } else {
         abort();
     }

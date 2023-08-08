@@ -12,7 +12,7 @@ class AdherentRepository {
             'password' => $password
         ]);
         
-        return $statement->fetchAll(PDO::FETCH_ASSOC);  
+        return $statement->fetch(PDO::FETCH_ASSOC);  
     }
 
     public function create(Adherent $adherent) {

@@ -1,17 +1,32 @@
 <?php
 
 function auth() {
-    $adherentRepository = new AdherentRepository();
-    $adherentRepository->connection = new DatabaseConnection();
-    
-    $id = $adherentRepository->getID('malcovys22.aps@gmail.com', 'Malcovys');
 
-    if ($id) {
+    // if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+        // $data = json_decode(file_get_contents('php://input'), true);
+        $data = ['email' => 'malcovys22.aps@gmail.com', 'password' => 'Malcovys'];
+
+        if ( !empty($data['email']) && !empty($data['password'])) {
+
+            $email = $data['email'];
+            $password = $data['password'];
+
+            $adherentRepository = new AdherentRepository();
+            $adherentRepository->connection = new DatabaseConnection();
         
-    }
+            $id = $adherentRepository->getID($email, $password);
 
-    echo json_encode($id, JSON_PRETTY_PRINT);
+            if ($id) {
+                return $id;
+            }
 
-    die();
+            return ['message' => 'Mot de passe ou email incorrect'];
     
-}
+        }
+
+        return ['message' => 'Mauvaise requette'];
+    
+    }
+// }
+        

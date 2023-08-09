@@ -2,10 +2,10 @@
 
 function auth() {
 
-    // if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-        // $data = json_decode(file_get_contents('php://input'), true);
-        $data = ['email' => 'malcovys22.aps@gmail.com', 'password' => 'Malcovys'];
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $data = [];
+        $data = json_decode(file_get_contents('php://input'), true);
+        // $data = ['email' => 'malcovys@gmail.com', 'password' => 'LVEsp5Xv8h'];
 
         if ( !empty($data['email']) && !empty($data['password'])) {
 
@@ -15,18 +15,72 @@ function auth() {
             $adherentRepository = new AdherentRepository();
             $adherentRepository->connection = new DatabaseConnection();
         
-            $id = $adherentRepository->getID($email, $password);
+            $passwordHashed = $adherentRepository->getPassword($email);
 
-            if ($id) {
-                return $id;
+            if (password_verify($password, $passwordHashed)) {
+                $adherent = [];
+                $adherent = $adherentRepository->getUser($email, $passwordHashed);
+
+                return generateToken(
+                    $adherent['id_adherent'],
+                    ($adherent['abonement']) ? $adherent['abonement'] : 0,
+                    $adherent['date_admission'],
+                    $adherent['type_compte']
+                );
+               
             }
 
-            return ['message' => 'Mot de passe ou email incorrect'];
+            return ['404' => 'Mot de passe ou email incorrect'];
     
         }
 
-        return ['message' => 'Mauvaise requette'];
+        return ['400' => 'Mauvaise requette'];
     
     }
-// }
+}
+
+function inscription() {
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+        $data = [];
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        $password = generatePassword(10);
+
+        // $data = [
+        //     'nom' => 'BEANJARA',
+        //     'prenom' => 'Malcovys',
+        //     'email' => 'malcovys@gmail.com',
+        //     'adresse' => 'IIM 45 ABC, Androhibe',
+        //     'abonement' => 12,
+        // ];
+
+        $adherent = new Adherent($data['nom'], 
+            $data['prenom'], $data['email'], 
+            $data['adresse'], $data['abonement'], 
+            date("Y-m-d"), $password
+        );
+
+        $adherentRepository = new AdherentRepository();
+        $adherentRepository->connection = new DatabaseConnection();
+
+        if ($adherentRepository->create($adherent)) {
+
+            return [
+                'nom' => 'BEANJARA',
+                'prenom' => 'Malcovys',
+                'email' => 'malcovys@gmail.com',
+                'adresse' => 'IIM 45 ABC, Androhibe',
+                'abonement' => 12,
+                'password' => $password
+            ];
+
+        } else {
+
+            return ["message" => "Non engerister"];
+
+        }
+    }
+}
         

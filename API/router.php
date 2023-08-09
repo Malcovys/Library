@@ -4,26 +4,28 @@ $uri = $_SERVER['REQUEST_URI'];
 
 $routes = [
     '/auth' => 'auth',
+    '/inscription' => 'inscription',
 ];
 
 function routeToController($uri, $routes) {
+
+    header("Content-Type: application/json");
 
     if (array_key_exists($uri, $routes)) {
         $controller = $routes[$uri];
 
         $response = $controller();
 
-        header("Content-Type: application/json");
-        
-        echo json_encode($response, JSON_PRETTY_PRINT);
+        echo json_encode($response);
 
     } else {
         abort();
     }
 }
 
-function abort($code = 404) {
-    http_response_code($code);
+function abort($code = 404, $message = 'Page introuvable') {
+    
+    echo json_encode([$code => $message], JSON_PRETTY_PRINT);
 
     die();
 }

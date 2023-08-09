@@ -4,5 +4,9 @@
         "name":"library",
         "user":"bonely",
         "password":"Bonely12;"
+    },
+    "api": {
+        "key":"ITvKMJrIBSEfpT4BX3yaQ0qIRU56tdgpU2zImwWbHlVxaKdE4vC5BD4RrlczEB4zDlR0upNtlP6TudTSh7srY9dvGCxf6MzDLwXvFEp1czfEsPOBoG95dkTDmvEnfgGNMh3vytTsBVwozcxzleoqL0hC4Q42wXac0LcH7t193NcfM2V5xsCGOnsexQpprgITZotXGVXJPIEaz961nUf4nJ2ql5slouOgNWdiyrvROLSJcCB5ilz2tdsz2VlpwKu",
+        "jwt_alg":"HS256"
     }
 }

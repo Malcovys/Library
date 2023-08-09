@@ -41,7 +41,7 @@ CREATE TABLE `adherent` (
   `type_compte` CHAR(3) NOT NULL DEFAULT 'ADR',
   `mdp` VARCHAR(255) NOT NULL,
   `statut_adherent` BOOLEAN NOT NULL DEFAULT 1,
-  `token` VARCHAR(255)
+  `key` VARCHAR(255)
 );
 
 CREATE TABLE `emprunt` (

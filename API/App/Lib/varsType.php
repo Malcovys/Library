@@ -11,7 +11,7 @@ class Adherent {
     public string $date_admission;
     public string $password;
 
-    public function __construct(string $nom, string $prenom, string $mail, string $adresse, string $abonement, string $date_admission, string $password)
+    public function __construct(string $nom, string $prenom, string $mail, string $adresse, string $abonement, string $date_admission, string $password, string $compte = 'ADR')
     {
         $this->nom = $nom;
         $this->prenom = $prenom;
@@ -20,6 +20,7 @@ class Adherent {
         $this->abonement = $abonement;
         $this->date_admission = $date_admission;
         $this->password = $password;
+        $this->type_compte = $compte;
     }
 
 }

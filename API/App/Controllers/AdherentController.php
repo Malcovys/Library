@@ -5,7 +5,7 @@ function auth() {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $data = [];
         $data = json_decode(file_get_contents('php://input'), true);
-        // $data = ['email' => 'malcovys@gmail.com', 'password' => 'LVEsp5Xv8h'];
+        // $data = ['email' => 'anicetjonhia@gmail.com', 'password' => 'dC1NpwqOiU'];
 
         if ( !empty($data['email']) && !empty($data['password'])) {
 
@@ -33,10 +33,10 @@ function auth() {
             return ['404' => 'Mot de passe ou email incorrect'];
     
         }
-
-        return ['400' => 'Mauvaise requette'];
     
     }
+
+    return ['400' => 'Mauvaise requette'];
 }
 
 function inscription() {
@@ -46,15 +46,15 @@ function inscription() {
         $data = [];
         $data = json_decode(file_get_contents('php://input'), true);
 
-        $password = generatePassword(10);
-
         // $data = [
-        //     'nom' => 'BEANJARA',
-        //     'prenom' => 'Malcovys',
-        //     'email' => 'malcovys@gmail.com',
+        //     'nom' => 'Anicet',
+        //     'prenom' => 'Jonhia',
+        //     'email' => 'anicetjonhia@gmail.com',
         //     'adresse' => 'IIM 45 ABC, Androhibe',
         //     'abonement' => 12,
         // ];
+
+        $password = generatePassword(10);
 
         $adherent = new Adherent($data['nom'], 
             $data['prenom'], $data['email'], 

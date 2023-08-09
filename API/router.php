@@ -5,6 +5,7 @@ $uri = $_SERVER['REQUEST_URI'];
 $routes = [
     '/auth' => 'auth',
     '/inscription' => 'inscription',
+    '/test' => 'test',
 ];
 
 function routeToController($uri, $routes) {

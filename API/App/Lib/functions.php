@@ -53,3 +53,7 @@ function generateToken(int $id, int $abonement,string $admissionDate, string $ty
     // $decode = JWT::decode($header['Authorization'], new Key($sec_key, 'HS256'));
     // dd($decode);
 }
+
+function test() {
+    return ['message' => 'Salut'];
+}

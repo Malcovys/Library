@@ -1,6 +1,6 @@
 <template>
     <div v-if="user">
-        {{ user.id_adherent }}
+        {{ user }}
     </div>
     <form 
         v-else
@@ -32,7 +32,6 @@
 
 <script>
 import { API_URL } from '../config';
-import axios from 'axios';
 
 
 export default {
@@ -45,17 +44,23 @@ export default {
     },
     methods: {
         async fetchUserData() {
+            
+            const data = { email: this.email, password: this.password };
+
             try {
-                const response = await axios.post(API_URL+'auth', {
-                    email: this.email,
-                    password: this.password
+                const response = await fetch(API_URL + 'auth', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
                 });
                 
-                this.user = response.data;
-
+                this.user = await response.json();
             } catch (error) {
-                alert(error);
+                console.error('Error:', error);
             }
+
         },
         handleSubmit() {
             this.fetchUserData()

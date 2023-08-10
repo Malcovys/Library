@@ -13,6 +13,7 @@ function dd($value) {
     
 }
 
+
 function generatePassword($length = 255) {
 
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -52,6 +53,17 @@ function generateToken(int $id, int $abonement,string $admissionDate, string $ty
     // dd(['header' => $header['Authorization'], 'encode' => $encode]);
     // $decode = JWT::decode($header['Authorization'], new Key($sec_key, 'HS256'));
     // dd($decode);
+}
+
+function decodeToken(string $token) {
+
+    $file = file_get_contents('config.json');
+    $data = json_decode($file, true);
+
+    $sec_key = $data['api']['key'];
+    $alg = $data['api']['jwt_alg'];
+
+    return JWT::decode($token, new Key($sec_key, $alg));
 }
 
 function test() {

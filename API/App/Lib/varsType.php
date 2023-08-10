@@ -24,3 +24,23 @@ class Adherent {
     }
 
 }
+
+class Livre {
+
+    public string $isbn;
+    public string $titre;
+    public int $id_maison;
+    public string $categorie;
+    public int $quantite;
+    public string $date_edition;
+
+    public function __construct(string $isbn, string $titre, int $id_maison, string $categorie, int $quantite, string $date_edition)
+    {
+        $this->isbn = $isbn;
+        $this->titre = $titre;
+        $this->id_maison = $id_maison;
+        $this->categorie = $categorie;
+        $this->quantite = $quantite;
+        $this->date_edition = $date_edition;
+    }
+}

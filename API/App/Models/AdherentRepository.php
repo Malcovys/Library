@@ -69,4 +69,17 @@ class AdherentRepository {
 
     }
 
+    public function getStaff(int $id, string $compte) {
+        $query = "SELECT `id_adherent`, `type_compte`
+             FROM `adherent` WHERE `id_adherent` = :id AND `type_compte` = :compte";
+
+        $statement = $this->connection->getConnection()->prepare($query);
+        $statement->execute([
+            'id' => $id,
+            'compte' => $compte
+        ]);
+        
+        return $statement->fetchColumn();
+    }
+
 }

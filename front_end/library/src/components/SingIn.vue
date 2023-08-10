@@ -111,20 +111,25 @@ export default {
   },
   methods: {
     
-    async fetchUserData() {
-        try {
-            const response = await axios.post(API_URL + 'auth', {
-                email: this.email,
-                password: this.password
-            });
+        async fetchUserData() {
+            
+            const data = { email: this.email, password: this.password };
 
-            this.user = response.data;
+            try {
+                const response = await fetch(API_URL + 'auth', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+                
+                this.user = await response.json();
+            } catch (error) {
+                console.error('Error:', error);
+            }
 
-        } catch (error) {
-            console.error('Error fetching user data:', error);
-            alert('An error occurred. Please try again.');
-        }
-    },
+        },
 
     handleSubmit() {
       this.fetchUserData();

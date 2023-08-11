@@ -15,7 +15,9 @@ class ExemplaireRepository
                 'enregistrement' => $enregistrement
             ]);
 
-            return true;
+            $id = $this->connection->getConnection()->lastInsertId();
+
+            return $id;
 
         } catch (PDOException $e) {
 
@@ -23,13 +25,13 @@ class ExemplaireRepository
         }
     }
 
-    public function verifieExemplaire(string $isbn) {
+    public function verifieExemplaire(string $id) {
 
-        $query = "SELECT `isbn` FROM `exemplaire` WHERE `isbn` = :isbn";
+        $query = "SELECT `num_exemplaire` FROM `exemplaire` WHERE `num_exemplaire` = :id";
 
         $statement = $this->connection->getConnection()->prepare($query);
         $statement->execute([
-            'isbn' => $isbn
+            'id' => $id
         ]);
 
         if ($statement->fetchColumn()) {

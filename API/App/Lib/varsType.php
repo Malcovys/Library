@@ -55,3 +55,18 @@ class Livre {
         $this->note = $note;
     }
 }
+
+class Emprunt {
+    public int $id_adherent;
+    public int $num_exemplaire;
+    public string $date_emprunt;
+    public string $date_echeance;
+
+    public function __construct(int $id_adherent, int $num_exemplaire, string $date_emprunt, string $date_echeance)
+    {
+        $this->id_adherent = $id_adherent;
+        $this->num_exemplaire = $num_exemplaire;
+        $this->date_emprunt = $date_emprunt;
+        $this->date_echeance = $date_echeance;
+    }
+}

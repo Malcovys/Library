@@ -9,8 +9,8 @@ import AddBook from './components/AddBook.vue'
 
 <template>
     <div>
-        <SingIn />
-        
+        <!-- <SingIn /> -->
+        <Menu />
         
         
     </div>

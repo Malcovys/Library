@@ -1,12 +1,14 @@
 <?php
 
-$uri = $_SERVER['REQUEST_URI'];
+$uri = isset($_SERVER['REDIRECT_URL']) ? $_SERVER['REDIRECT_URL'] : $_SERVER['REQUEST_URI'];
+
+
 
 $routes = [
     '/' => 'test',
     '/adherent/auth' => 'auth',
     '/adherent/inscription' => 'inscription',
-    '/livre/ajout' => 'ajouterLivre',
+    '/livre/ajout' => 'ajouterLivre',   
     '/livre/infos' => 'LivreInfos',
     '/livre/empreunt' => 'fuilleEmprunt',
     '/adherent/post/avis' => 'posterAvis',
@@ -43,4 +45,4 @@ function abort($code = 404, $message = 'Page introuvable') {
     die();
 }
 
-routeToController($uri, $routes);
+routeToController($uri, $routes);;

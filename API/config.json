@@ -10,6 +10,7 @@
         "jwt_alg":"HS256"
     },
     "googlebook_api": {
-        "key":"AIzaSyB5maWU-sp6PfqlFPgOmCDgO09NDBLm4M4"
-    }
+        "key":"AIzaSyBx99bZqPQy72pYycEquwgRhux5kdvIEr4"
+    },
+    "req":"https://www.googleapis.com/books/v1/volumes?q=isbn:9780156012195&key=AIzaSyBx99bZqPQy72pYycEquwgRhux5kdvIEr4"
 }

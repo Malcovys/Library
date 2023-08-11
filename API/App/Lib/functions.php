@@ -13,7 +13,6 @@ function dd($value) {
     
 }
 
-
 function generatePassword($length = 255) {
 
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';

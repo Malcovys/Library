@@ -23,4 +23,24 @@ class EmpruntRepository {
             return false;
         }
     }
+    
+    public function insertDateRetour(int $emprunt, string $date) {
+        
+        $query = "UPDATE `emprunt` SET `date_retour` = :date WHERE `num_emprunt` = :emprunt";
+
+        try {
+
+            $statement = $this->connection->getConnection()->prepare($query);
+            $statement->execute([
+                'date' => $date,
+                'emprunt' => $emprunt
+            ]);
+
+            return true;
+
+        } catch(PDOException $e) {
+            return false;
+        }
+
+    }
 }

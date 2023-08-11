@@ -7,18 +7,18 @@ function emprunter() {
         return ["message" => "Mauvaise requête"];
     }
 
-    // if (!$data = json_decode(file_get_contents('php://input'), true)){
-    //     return ['message' => 'parametres manquant'];;
-    // }
+    if (!$data = json_decode(file_get_contents('php://input'), true)){
+        return ['message' => 'parametres manquant'];
+    }
 
-    $data = [
-        'emprunt' => [
-            'num_exemplaire' => 6,
-            'id_adherent' => 9,
-            'date_echeance' => '2023-08-15'
-        ],
-        'staff' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTEsImFib25lbWVudCI6MTIsImFkbWlzc2lvbiI6IjIwMjMtMDgtMDkiLCJ0eXBlX2NvbXB0ZSI6IkFETSJ9.Rcaqs5jDujKMEg9YgiBMdbO2F0NXvnEpltEy8cf0GDY'
-    ];
+    // $data = [
+    //     'emprunt' => [
+    //         'num_exemplaire' => 6,
+    //         'id_adherent' => 9,
+    //         'date_echeance' => '2023-08-15'
+    //     ],
+    //     'staff' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTEsImFib25lbWVudCI6MTIsImFkbWlzc2lvbiI6IjIwMjMtMDgtMDkiLCJ0eXBlX2NvbXB0ZSI6IkFETSJ9.Rcaqs5jDujKMEg9YgiBMdbO2F0NXvnEpltEy8cf0GDY'
+    // ];
 
     $satff = decodeToken($data['staff']);
 
@@ -68,4 +68,65 @@ function emprunter() {
     };
 
     return ["message" => "Prêt enregistrer"];
+}
+
+function rendre() {
+
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        return ["message" => "Mauvaise requête"];
+    }
+
+    // if (!$data = json_decode(file_get_contents('php://input'), true)){
+    //     return ['message' => 'parametres manquant'];
+    // }
+
+    $data = [
+        'retour' => [
+            'num_exemplaire' => 10,
+            'num_emprunt' => 2,
+            'id_adherent' => 12,
+        ],
+        'staff' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTEsImFib25lbWVudCI6MTIsImFkbWlzc2lvbiI6IjIwMjMtMDgtMDkiLCJ0eXBlX2NvbXB0ZSI6IkFETSJ9.Rcaqs5jDujKMEg9YgiBMdbO2F0NXvnEpltEy8cf0GDY'
+    ];
+
+    $satff = decodeToken($data['staff']);
+
+    if (!$satff->id || !$satff->type_compte) {
+        return ['message' => 'Données du personnel manquantes'];
+    }
+
+    if ($satff->type_compte !== 'ADM' || !verifieStaff($satff->id, $satff->type_compte)) {
+        return ['message' => 'Personnel inexistant ou non autorisé'];
+    }
+
+    $retour = $data['retour'];
+
+    if($satff->id == $retour['id_adherent']) {
+        return ['message' => 'Opération non autoriser'];
+    }
+
+    if (!verifieUser($retour['id_adherent'])) {
+        return ['message' => 'Membre innexistant dans la base de donnée'];
+    }
+
+    $exemplaireRepository = new ExemplaireRepository();
+    $exemplaireRepository->connection = new DatabaseConnection;
+
+    if (!$exemplaireRepository->verifieExemplaire($retour['num_exemplaire'])) {
+        return ['message' => 'Exemplaire innexistant dans la base de donnée'];
+    }
+
+    $empruntRepository = new EmpruntRepository();
+    $empruntRepository->connection = new DatabaseConnection;
+
+    if(!$empruntRepository->insertDateRetour($retour['num_emprunt'], date('Y-m-d'))) {
+        return ['message' => "Impossible d'enregister le retour"];
+    }
+
+    if (!$exemplaireRepository->updateState($retour['num_exemplaire'])) {
+        return ['message' => "Impossible de mettre à jour le statut de l'exemplaire"];
+    }
+
+    return ["message" => "Livre rendu"];
+
 }

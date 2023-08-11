@@ -9,6 +9,7 @@ $routes = [
     '/adherent/auth' => 'auth',
     '/adherent/inscription' => 'inscription',
     '/livre/pret' => 'emprunter',
+    '/livre/retour' => 'rendre',
     '/livre/ajout' => 'ajouterLivre',   
     '/livre/infos' => 'LivreInfos',
     '/livre/empreunt/feuille' => 'feuilleEmprunt',

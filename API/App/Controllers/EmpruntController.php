@@ -7,18 +7,18 @@ function emprunter() {
         return ["message" => "Mauvaise requête"];
     }
 
-    if (!$data = json_decode(file_get_contents('php://input'), true)){
-        return ['message' => 'parametres manquant'];;
-    }
+    // if (!$data = json_decode(file_get_contents('php://input'), true)){
+    //     return ['message' => 'parametres manquant'];;
+    // }
 
-    // $data = [
-    //     'emprunt' => [
-    //         'num_exemplaire' => 9,
-    //         'id_adherent' => 12,
-    //         'date_echeance' => '2023-08-15'
-    //     ],
-    //     'staff' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTEsImFib25lbWVudCI6MTIsImFkbWlzc2lvbiI6IjIwMjMtMDgtMDkiLCJ0eXBlX2NvbXB0ZSI6IkFETSJ9.Rcaqs5jDujKMEg9YgiBMdbO2F0NXvnEpltEy8cf0GDY'
-    // ];
+    $data = [
+        'emprunt' => [
+            'num_exemplaire' => 6,
+            'id_adherent' => 9,
+            'date_echeance' => '2023-08-15'
+        ],
+        'staff' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTEsImFib25lbWVudCI6MTIsImFkbWlzc2lvbiI6IjIwMjMtMDgtMDkiLCJ0eXBlX2NvbXB0ZSI6IkFETSJ9.Rcaqs5jDujKMEg9YgiBMdbO2F0NXvnEpltEy8cf0GDY'
+    ];
 
     $satff = decodeToken($data['staff']);
 
@@ -50,6 +50,14 @@ function emprunter() {
 
     if (!$exemplaireRepository->verifieExemplaire($emprunt->num_exemplaire)) {
         return ['message' => 'Exemplaire innexistant dans la base de donnée'];
+    }
+
+    if (!$exemplaireRepository->verifieState($emprunt->num_exemplaire)) {
+        return ['message' => 'Exemplaire indisponible'];
+    }
+
+    if (!$exemplaireRepository->updateState($emprunt->num_exemplaire)) {
+        return ['message' => "Impossible de mettre à jour le statut de l'exemplaire"];
     }
 
     $empruntRepository = new EmpruntRepository();

@@ -25,7 +25,7 @@ class ExemplaireRepository
         }
     }
 
-    public function verifieExemplaire(string $id) {
+    public function verifieExemplaire(int $id) {
 
         $query = "SELECT `num_exemplaire` FROM `exemplaire` WHERE `num_exemplaire` = :id";
 
@@ -40,5 +40,34 @@ class ExemplaireRepository
         }
 
         return false;
+    }
+
+    public function updateState(int $id) {
+        
+        $query = "UPDATE `exemplaire` SET `statut_exemplaire` = CASE WHEN `statut_exemplaire` = 0 THEN 1 ELSE 0 END
+            WHERE `num_exemplaire` = :id";
+
+        try {
+
+            $statement = $this->connection->getConnection()->prepare($query);
+            $statement->execute(['id' => $id]);
+
+            return true;
+
+        } catch(PDOException $e) {
+            return false;
+        }
+    }
+
+    public function verifieState(int $id) {
+
+        $query = "SELECT `statut_exemplaire` FROM `exemplaire` WHERE `num_exemplaire` = :id";
+
+        $statement = $this->connection->getConnection()->prepare($query);
+        $statement->execute([
+            'id' => $id
+        ]);
+
+        return $statement->fetchColumn();
     }
 }

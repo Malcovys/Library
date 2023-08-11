@@ -146,5 +146,17 @@ function LivreInfos() {
     $livreRepository->connection = new DatabaseConnection;
     $livre = $livreRepository->getLivre($isbn);
 
+    $livre = unsetIndexedItems($livre);
+
+    $maison_edition_id = $livre['num_maison'];
+    unset($livre['num_maison']);
+
+    $maisonEditionRepositoy = new MaisonEditionRepositoy();
+    $maisonEditionRepositoy->connection = new DatabaseConnection;
+    $maison_edition = $maisonEditionRepositoy->getMaison($maison_edition_id);
+
+    $livre += ['maison_edition' => $maison_edition];
+
     return $livre;
+    
 }

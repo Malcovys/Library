@@ -33,6 +33,7 @@ function routeToController($uri, $routes) {
 
         echo json_encode($response);
 
+
     } else {
         abort();
     }

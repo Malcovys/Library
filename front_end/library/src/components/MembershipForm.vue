@@ -72,7 +72,7 @@
     
       </div>
 
-      <img src="../assets/images/membership.avif" alt="" width="2432" height="1442">
+      <img src="../assets/images/membership.avif"  alt="" width="2432" height="1442">
         
       
       </div>
@@ -80,3 +80,40 @@
   </div>
 
 </template>
+
+<script>
+export default {
+  name: 'MemberInfoPage', // Remplacez 'MemberInfoPage' par le nom de votre composant si nécessaire
+  data() {
+    return {
+      firstName: '',
+      lastName: '',
+      email: '',
+      accountType: '',
+      streetAddress: '',
+      city: ''
+    };
+  },
+  methods: {
+    handleSubmit() {
+      // Logique de traitement du formulaire ici
+      // Vous pouvez accéder aux données via this.firstName, this.lastName, etc.
+      console.log('Formulaire soumis !');
+      console.log('Prénom:', this.firstName);
+      console.log('Nom de famille:', this.lastName);
+      console.log('Email:', this.email);
+      console.log('Type de compte:', this.accountType);
+      console.log('Adresse:', this.streetAddress);
+      console.log('Ville:', this.city);
+    },
+    handleCancel() {
+      // Logique d'annulation du formulaire ici
+      console.log('Formulaire annulé.');
+    }
+  }
+};
+</script>
+
+<style scoped>
+/* Vos styles ici si nécessaire */
+</style>

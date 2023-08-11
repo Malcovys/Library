@@ -76,18 +76,18 @@ function rendre() {
         return ["message" => "Mauvaise requête"];
     }
 
-    // if (!$data = json_decode(file_get_contents('php://input'), true)){
-    //     return ['message' => 'parametres manquant'];
-    // }
+    if (!$data = json_decode(file_get_contents('php://input'), true)){
+        return ['message' => 'parametres manquant'];
+    }
 
-    $data = [
-        'retour' => [
-            'num_exemplaire' => 10,
-            'num_emprunt' => 2,
-            'id_adherent' => 12,
-        ],
-        'staff' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTEsImFib25lbWVudCI6MTIsImFkbWlzc2lvbiI6IjIwMjMtMDgtMDkiLCJ0eXBlX2NvbXB0ZSI6IkFETSJ9.Rcaqs5jDujKMEg9YgiBMdbO2F0NXvnEpltEy8cf0GDY'
-    ];
+    // $data = [
+    //     'retour' => [
+    //         'num_exemplaire' => 10,
+    //         'num_emprunt' => 2,
+    //         'id_adherent' => 12,
+    //     ],
+    //     'staff' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTEsImFib25lbWVudCI6MTIsImFkbWlzc2lvbiI6IjIwMjMtMDgtMDkiLCJ0eXBlX2NvbXB0ZSI6IkFETSJ9.Rcaqs5jDujKMEg9YgiBMdbO2F0NXvnEpltEy8cf0GDY'
+    // ];
 
     $satff = decodeToken($data['staff']);
 
@@ -129,4 +129,54 @@ function rendre() {
 
     return ["message" => "Livre rendu"];
 
+}
+
+function feuilleEmprunt() {
+
+    if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+        return ["message" => "Mauvaise requête"];
+    }
+
+    if (empty($_GET['isbn']) && empty($_GET['token'])) {
+        return ['message' => 'Paramaètres manquants'];
+    }
+
+    $isbn = $_GET['isbn'];
+    $token = $_GET['token'];
+
+    $user = decodeToken($token);
+    
+    if (!$user->id) {
+        return ['message' => 'Données personnel manquantes'];
+    }
+
+    if(!verifieUser($user->id)) {
+        return ['message' => 'Utilisateur inconnu.'];
+    }
+
+    # get all num livre where isbn = isbn
+    # boucle num livre pour get emprunt where num_livre = num livre -> array
+
+    $exemplaireRepository = new ExemplaireRepository();
+    $exemplaireRepository->connection = new DatabaseConnection;
+
+    $exemplaireIdis = $exemplaireRepository->getIds($isbn);
+
+    $empruntHistory = array();
+    $end = count($exemplaireIdis);
+
+    $empruntRepository = new EmpruntRepository();
+    $empruntRepository->connection = new DatabaseConnection;
+
+    $adherentRepository = new AdherentRepository();
+    $adherentRepository->connection = new DatabaseConnection;
+
+    for($i=0; $i<$end; $i++) {
+        if($history=$empruntRepository->get($exemplaireIdis[$i])){
+            $history += ['prenom_adherent' => $adherentRepository->getLastName($history['id_adherent'])];
+            array_push($empruntHistory, $history);
+        }
+    }
+
+    return $empruntHistory;
 }

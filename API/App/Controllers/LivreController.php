@@ -138,7 +138,7 @@ function LivreInfos() {
     $user = decodeToken($token);
     
     if (!$user->id) {
-        return ['message' => 'Données du personnel manquantes'];
+        return ['message' => 'Données personnel manquantes'];
     }
 
     if(!verifieUser($user->id)) {

@@ -94,4 +94,14 @@ class AdherentRepository {
         return $statement->fetchColumn();
     }
 
+    public function getLastName(int $id) {
+        $query = "SELECT `prenom` FROM `adherent` WHERE `id_adherent` = :id";
+
+        $statement = $this->connection->getConnection()->prepare($query);
+        $statement->execute([
+            'id' => $id
+        ]);
+        
+        return $statement->fetchColumn(); 
+    }
 }

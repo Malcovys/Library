@@ -70,4 +70,16 @@ class ExemplaireRepository
 
         return $statement->fetchColumn();
     }
+
+    public function getIds(string $isbn) {
+
+        $query = "SELECT `num_exemplaire` FROM `exemplaire` WHERE `isbn` = :isbn";
+
+        $statement = $this->connection->getConnection()->prepare($query);
+        $statement->execute([
+            'isbn' => $isbn
+        ]);
+
+        return $statement->fetchAll(PDO::FETCH_COLUMN);
+    }
 }

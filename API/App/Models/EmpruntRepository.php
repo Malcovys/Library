@@ -43,4 +43,14 @@ class EmpruntRepository {
         }
 
     }
+
+    public function get(int $num_exemplaire) {
+
+        $query = "SELECT * FROM `emprunt` WHERE `num_exemplaire` = :num_exemplaire";
+
+        $statement = $this->connection->getConnection()->prepare($query);
+        $statement->execute(['num_exemplaire' => $num_exemplaire]);
+
+        return $statement->fetch(PDO::FETCH_ASSOC);
+    }
 }

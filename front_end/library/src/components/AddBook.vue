@@ -72,6 +72,28 @@
                       <input type="year" name="date" id="date"  class="block w-full p-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                   </div>
+                  <div class="sm:col-span-6">
+                    <label for="description" class="block text-sm font-medium leading-6 text-gray-900">Description</label>
+                    <div class="mt-2">
+                       <textarea name="descripton" id="description" cols="6" rows="1"
+                    class="block w-full p-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+                    </div>
+                  </div>
+                  <div class="sm:col-span-6">
+                    <label for="note" class="block text-sm font-medium leading-6 text-gray-900">Note</label>
+                    <div class="mt-2">
+                       <textarea name="note" id="note" cols="6" rows="1"
+                    class="block w-full p-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+                    </div>
+                  </div>
+                  <div class="sm:col-span-6">
+                    <label for="image" class="block text-sm font-medium leading-6 text-gray-900">Image</label>
+                    <div class="mt-2">
+                        <img src="" alt="" width="5" height="5">
+                        
+                    </div>
+                  </div>
+                  
           
                  
         
@@ -93,7 +115,7 @@
         </div>
   
         <div class="flex justify-center">
-            <img src="../assets/images/addBook.jpeg" class="" alt="">
+            <img src="../assets/images/addbook.jpg" class=" m-auto rounded-b-lg lg:w-full h-full lg:rounded-r-lg lg:rounded-bl-none" alt="">
            
           
         </div>

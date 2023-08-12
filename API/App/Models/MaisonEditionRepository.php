@@ -48,4 +48,16 @@ class MaisonEditionRepositoy {
 
         return $statement->fetchColumn();
     }
+
+    public function getMaison(int $id) {
+
+        $query = "SELECT `nom_maison` FROM `maison` WHERE `num_maison` = :id";
+
+        $statement = $this->connection->getConnection()->prepare($query);
+        $statement->execute([
+            'id' => $id
+        ]);
+
+        return $statement->fetchColumn();
+    }
 }

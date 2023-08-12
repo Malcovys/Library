@@ -3,7 +3,7 @@
 function auth() {
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $data = [];
+
         $data = json_decode(file_get_contents('php://input'), true);
         // $data = ['email' => 'malcovys@gmail.com', 'password' => 'x2SQRGzLbV'];
             // $mamitihana = auPrMUwQC9
@@ -44,7 +44,6 @@ function inscription() {
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-        $data = [];
         $data = json_decode(file_get_contents('php://input'), true);
 
         // $data = [
@@ -116,4 +115,19 @@ function verifieStaff(int $id, $type_compte) {
         return false;
         
     }
+}
+
+function verifieUser(int $id) {
+
+    $adherentRepository = new AdherentRepository();
+    $adherentRepository->connection = new DatabaseConnection();
+
+    if($adherentRepository->getAdherentIDByID($id)) {
+
+        return true;
+
+    }
+
+    return false;
+    
 }

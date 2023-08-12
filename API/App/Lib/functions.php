@@ -13,7 +13,6 @@ function dd($value) {
     
 }
 
-
 function generatePassword($length = 255) {
 
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -68,4 +67,15 @@ function decodeToken(string $token) {
 
 function test() {
     return ['message' => 'Salut'];
+}
+
+function unsetIndexedItems(array $array) {
+
+    $arraylenght = count($array);
+    for($i=0; $i <= $arraylenght; $i++) {
+        unset($array[$i]);
+    }
+
+    return $array;
+
 }

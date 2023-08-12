@@ -19,7 +19,6 @@ $routes = [
     '/livre/arrivage' => 'arriageLivre',
     '/livre/avis' => 'livreAvis',
     '/adherent/calendrier' => 'calandarAdherent',
-    '/adherent/retourner' => 'returnedBook',
     '/adherent/carte' => 'cardAdherent',
     '/activite/emprunt' => 'empruntActivity',
     '/activite/adherent' => 'adherentActivity',

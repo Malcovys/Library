@@ -4,9 +4,7 @@
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
       <div class="mx-auto p-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2 rounded-md border-0 py-1.5 text-gray-900 shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)]">
        <div class="lg:pr-8 lg:pt-4">
-        <form class="m-2 w-full p-5 rounded-md shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] ">
-   
-  
+        <form class="m-2 w-full p-5 rounded-md shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px]">
           <div class="border-b border-gray-900/10 pb-12">
             <h1 class="text-base font-extrabold leading-7"> <span class="text-green-400">Member's</span><span class="text-teal-500"> personal</span><span class="text-sky-400"> information</span></h1>
             <p class="mt-1 text-sm leading-6 text-gray-600">Your personal information for your membership</p>

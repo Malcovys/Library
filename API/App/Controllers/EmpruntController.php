@@ -180,3 +180,7 @@ function feuilleEmprunt() {
 
     return $empruntHistory;
 }
+
+function sanction() {
+    
+}

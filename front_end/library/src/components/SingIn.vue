@@ -17,7 +17,7 @@
                     />
                     <h4 class="mb-12 mt-1 pb-1 text-xl font-semibold">
                       <span class="text-green-400">We are</span>
-                      <span class="text-teal-500">book</span>
+                      <span class="text-teal-500"> book </span>
                       <span class="text-sky-400">lover</span>
                     </h4>
                   </div>

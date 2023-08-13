@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Remix icon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/dist/output.css" rel="stylesheet">
+    <style>
+        .scrolling-container {
+          overflow-x: scroll;
+          white-space: nowrap;
+        }
+
+        @keyframes movingY {
+          0%, 100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-10px);
+          }
+        }
+
+        /* Ajout de la classe pour l'effet d'agrandissement */
+        .enlarge-image {
+          transition: transform 0.3s ease-in-out;
+        }
+
+        .enlarge-image:hover {
+          transform: scale(1.2);
+        }
+
+        .scroll-controls {
+          position: sticky;
+          bottom: 0;
+          display: flex;
+          justify-content: flex-end;
+          background-color: rgba(255, 255, 255, 0.9);
+          padding: 8px;
+          z-index: 1;
+        }
+
+        .scroll-controls button {
+          margin-left: 8px;
+        }
+      </style>
+    <title>Livre</title>
+</head>
+<body class="bg-white">
+    <header>  
+        <div class="flex flex-row py-2">
+            <div class="w-full px-3">
+              <nav class="relative flex flex-row items-center justify-between px-1 py-3 rounded">
+                <div class="container px-4 mx-auto flex flex-row items-center justify-between">
+                    <div class="relative max-w-md w-full">
+                        <div class="absolute top-1 left-2 inline-flex items-center  p-2">
+                            <i class="fas fa-search text-gray-400"></i>
+                        </div>
+                        <input class="w-full h-10 pl-10 pr-4 py-1 text-base placeholder-gray-500 border rounded-full focus:shadow-outline" type="search" placeholder="Search an author,edition , book">
+                     </div>
+                    <ul class="flex flex-row lg:flex-row list-none ml-auto">
+                      <li class="nav-item">
+                        <a class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-black hover:opacity-75" href="#pablo">
+                          <i class="fas fa-user text-lg leading-lg text-black opacity-75"></i> 
+                          <span class="mx-2"> Mamitiana</span>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-black hover:opacity-75" href="#pablo">
+                          <i class="ri-notification-line text-lg leading-lg text-black opacity-75"></i>
+                        </a>
+                      </li>
+                    </ul>
+                </div>
+              </nav>
+            </div>
+          </div>
+    </header>
+    <div class="container flex flex-row items-center lg:md:sm:ml-auto ml-auto">
+        <div class="md:basis-1/2 lg:basis-2/5 sm:basis-3/5 basisi-4/5">
+                <h1 class="md:text-5xl sm:text-4xl text-3xl ml-10 lg:ml-0  font-bold mobile-title">Keep the story going..</h1>
+                <p class="text-gray-700- py-2">Don't let the story end just yet. Continue reading your last book and immerse yourself in the world of literature</p>
+        </div>
+        <div class="flex flex-col ml-auto md:basis-1/2 lg:basis-2/5 sm:basis-3/5 basisi-4/5">
+            <div class="flex flex-row">
+                <img class="md:w-20 md:h-20 w-10 h-10 rounded-full" src="/src/assets/Harry.jpeg" alt="">
+                <div class="mx-2">
+                    <p class="text-2xl font-bold">zartik</p>
+                    <p>author</p>
+                </div>
+            </div>
+            <br/>
+            <div class="py-5 mr-10">
+                <p>"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Neque nemo, quae quasi eligendi veritatis soluta tempora autem necessitatibus deserunt, ut possimus natus voluptatum. Eos debitis natus maiores sint soluta provident."</p>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="bg-stone-300">
+      <div class="scroll-controls">
+        <!-- Bouton "Précédent" -->
+        <button id="prevButton" class="border-solid border-2 rounded-full hover:bg-gray-300 ">
+            <i class="ri-arrow-left-line text-2xl"></i>
+        </button>
+  
+        <!-- Bouton "Suivant" -->
+        <button id="nextButton" class="border-solid border-2  rounded-full hover:bg-gray-300">
+            <i class="ri-arrow-right-line text-2xl"></i>
+        </button>
+      </div>
+    </div>
+  <section class="text-gray-600 body-font">
+    <div class="container px-5 py-10 mx-auto scrolling-container">
+        <div class="flex flex-row sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6">
+          <div class="p-4 md:w-1/3 flex-col text-center items-center ">
+            <img class="enlarge-image" src="/src/assets/71OZY035QKL._AC_UF1000,1000_QL80_.jpg" alt="">
+            <div class="py-2">
+              <h2 class="text-gray-900 text-lg title-font font-medium mb-3">Chronics of Narnia</h2>
+            </div>
+          </div>
+          <div class="p-4 sm:w-1/3 flex-col text-center items-center ">
+            <img class="enlarge-image" src="/src/assets/1200px-Fire_and_Blood.webp" alt="">
+            <div class="py-2">
+              <h2 class="text-gray-900 text-lg title-font font-medium mb-3">Fire and Blood</h2>
+            </div>
+          </div>
+          <div class="p-4 sm:w-1/3 flex-col text-center items-center ">
+            <img class="enlarge-image" src="/src/assets/beauty-and-the-beast-poster-2.jpg" alt="">
+            <div class="py-2">
+              <h2 class="text-gray-900 text-lg title-font font-medium mb-3">The Beauty and the Beast</h2>
+            </div>
+          </div>
+          <div class="p-4 sm:w-1/3 flex-col text-center items-center ">
+            <img class="enlarge-image" src="/src/assets/deadpool.jpg" alt="">
+            <div class="py-2">
+              <h2 class="text-gray-900 text-lg title-font font-medium mb-3">Dead Pool : Samurai</h2>
+            </div>
+          </div>
+          <div class="p-4 sm:w-1/3 flex-col text-center items-center ">
+            <img class="enlarge-image" src="/src/assets/3f38ce77580807.5c8b908b44e62.jpg" alt="">
+            <div class="flex-grow">
+              <h2 class="text-gray-900 text-lg title-font font-medium mb-3">Neptune</h2>
+            </div> 
+          </div>
+        </div>
+      </div>
+  </section>
+    <script>
+        const images = document.querySelectorAll('.enlarge-image');
+        const prevButton = document.getElementById('prevButton');
+        const nextButton = document.getElementById('nextButton');
+        let currentIndex = 0;
+
+        function scrollLeft() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                images[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+            }
+        }
+
+        function scrollRight() {
+            if (currentIndex < images.length - 1) {
+                currentIndex++;
+                images[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+            }
+        }
+
+        prevButton.addEventListener('click', scrollLeft);
+        nextButton.addEventListener('click', scrollRight);
+
+        images.forEach((image, index) => {
+            image.addEventListener('mouseenter', () => {
+                image.style.transform = 'scale(1.2)';
+            });
+
+            image.addEventListener('mouseleave', () => {
+                image.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendrier Hebdomadaire</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-8">
+
+    <div class="max-w-md mx-auto bg-white p-4 rounded shadow-md">
+        <div class="flex justify-between items-center mb-4">
+            <button id="prevWeekBtn" class="px-2 py-1 text-sm text-gray-500 hover:text-gray-700 focus:outline-none">
+                Semaine précédente
+            </button>
+            <h2 id="currentWeek" class="text-lg font-semibold"></h2>
+            <button id="nextWeekBtn" class="px-2 py-1 text-sm text-gray-500 hover:text-gray-700 focus:outline-none">
+                Semaine suivante
+            </button>
+        </div>
+        
+        <!-- Calendrier hebdomadaire -->
+        <div id="calendar" class="grid grid-cols-7 gap-2 text-center">
+            <!-- Les jours de la semaine seront insérés ici -->
+        </div>
+    </div>
+
+    <script>
+        const DAYS = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+        const MS_PER_DAY = 24 * 60 * 60 * 1000;
+
+        const calendarContainer = document.getElementById("calendar");
+        const currentWeekLabel = document.getElementById("currentWeek");
+        const prevWeekBtn = document.getElementById("prevWeekBtn");
+        const nextWeekBtn = document.getElementById("nextWeekBtn");
+
+        // Fonction pour afficher la semaine à partir du jour actuel
+        function displayWeek(startOfWeek) {
+            calendarContainer.innerHTML = "";
+
+            for (let i = 0; i < 7; i++) {
+                const day = new Date(startOfWeek.getTime() + i * MS_PER_DAY);
+                const dayName = DAYS[day.getDay()];
+                const dayNumber = day.getDate();
+
+                const dayElement = document.createElement("div");
+                dayElement.classList.add("bg-gray-300", "p-2", "rounded");
+                dayElement.innerText = dayName + "\n" + dayNumber;
+
+                calendarContainer.appendChild(dayElement);
+            }
+
+           
+        }
+
+        // Fonction pour passer à la semaine précédente
+        function prevWeek() {
+            const currentWeekStart = new Date(currentWeekLabel.innerText.split("du ")[1]);
+            const prevWeekStart = new Date(currentWeekStart.getTime() - 7 * MS_PER_DAY);
+            displayWeek(prevWeekStart);
+        }
+
+        // Fonction pour passer à la semaine suivante
+        function nextWeek() {
+            const currentWeekStart = new Date(currentWeekLabel.innerText.split("du ")[1]);
+            const nextWeekStart = new Date(currentWeekStart.getTime() + 7 * MS_PER_DAY);
+            displayWeek(nextWeekStart);
+        }
+
+        // Gestion des boutons de navigation
+        prevWeekBtn.addEventListener("click", prevWeek);
+        nextWeekBtn.addEventListener("click", nextWeek);
+
+        // Afficher la semaine actuelle au chargement de la page
+        const today = new Date();
+        const startOfWeek = new Date(today);
+        startOfWeek.setDate(today.getDate() - today.getDay()); // Commencer la semaine à partir du jour actuel
+        displayWeek(startOfWeek);
+
+        // Fonction utilitaire pour formater la date en "DD/MM/YYYY"
+        function formatDate(date) {
+            const day = date.getDate();
+            const month = date.getMonth() + 1;
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+    </script>
+</body>
+</html>

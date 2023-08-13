@@ -1,14 +1,16 @@
 <script setup>
-import IconHome from './icons/IconHome.vue';
-import IconHistory from './icons/IconHistory.vue';
-import IconSetting from './icons/IconSetting.vue';
-import IconBars from './icons/IconBars.vue';
-import MenuItem from './MenuItem.vue';
+import IconHome from '../components/icons/IconHome.vue';
+import IconHistory from '../components/icons/IconHistory.vue';
+import IconSetting from '../components/icons/IconSetting.vue';
+import IconBars from '../components/icons/IconBars.vue';
+import MenuItem from '../components/items/MenuItem.vue';
 </script>
 
 <template>
-
-     <MenuItem>
+     <MenuItem
+        homeLink="#f0"
+        historyLink="#H"
+        settingsLink="#ST">
         <template #container_icon>
             <IconBars />
         </template>

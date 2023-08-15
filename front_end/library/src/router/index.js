@@ -1,28 +1,30 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
-import History from '../views/History.vue'
-import Settings from '../views/Settings.vue'
+
+import Home from '../views/dashboard/Home.vue'
+import Settings from '../views/dashboard/Settings.vue'
+import History from '../views/dashboard/History.vue'
+
 import SingIn from '../views/SingIn.vue'
 
 const  routes = [
     {
-        path: '/',
-        name: 'SingIn',
+        path:'/',
+        name:'SingIn',
         component: SingIn
     },
     {
-        path: '/home',
-        name: 'Home',
-        component: Dashoard
+        path:'/home',
+        name:'Home',
+        component: Home
     },
     {
-        path: '/history',
-        name: 'History',
+        path:'/history',
+        name:'History',
         component: History
     },
     {
-        path: '/settings',
-        name: 'Settings',
+        path:'/settings',
+        name:'Settings',
         component: Settings
     }
 ]

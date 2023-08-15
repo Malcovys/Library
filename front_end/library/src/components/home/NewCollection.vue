@@ -23,3 +23,7 @@ import ScrollableHorizontalItemVue from "../items/ScrollableHorizontalItem.vue";
         </div>        
 </div>
 </template>
+
+<script>
+
+</script>

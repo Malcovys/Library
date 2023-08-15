@@ -29,7 +29,7 @@ function generatePassword($length = 255) {
 
 }
 
-function generateToken(int $id, int $abonement,string $admissionDate, string $type_compte) {
+function generateToken(int $id, string $prenom, int $abonement,string $admissionDate, string $type_compte) {
 
     $file = file_get_contents('config.json');
     $data = json_decode($file, true);
@@ -39,6 +39,7 @@ function generateToken(int $id, int $abonement,string $admissionDate, string $ty
 
     $playload = array(
         'id' => $id,
+        'prenom' => $prenom,
         'abonement' => $abonement,
         'admission' => $admissionDate,
         'type_compte' => $type_compte

@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia'
-import { API_URL } from '../config'
+import { API_URL } from '../composables/useApiUrl'
 
 export const useAuthStore = defineStore("authStore", {
     state: () => ({ 
-        isAuthenticated: null,
-        token: null,
+        isAuthenticated: JSON.parse(window.localStorage.getItem('authenticated')) || null,
+        token: window.localStorage.getItem('token') || null,
         message: null,
     }),
     actions: {
@@ -20,16 +20,20 @@ export const useAuthStore = defineStore("authStore", {
                 body: JSON.stringify(data)
             })
 
-            this.data = await response.json()
+            const responseData = await response.json()
 
-            if(this.data.message){
+            if(responseData.message){
 
-                this.message = this.data.message
+                this.message = responseData.message
 
             } else {
 
-                this.token = this.data.token
-                
+                this.token = responseData.token
+                this.setAuthenticated(true)
+
+                window.localStorage.setItem('token', responseData.token);
+                window.localStorage.setItem('authenticated', true);
+
             }
             
         },

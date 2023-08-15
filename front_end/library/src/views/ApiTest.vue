@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { API_URL } from '../config';
+import { API_URL } from '../composables/useApiUrl';
 
 export default {
     data() {

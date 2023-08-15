@@ -56,7 +56,7 @@ class AdherentRepository {
 
     public function getUser(string $email, string $password) {
 
-        $query = "SELECT `id_adherent`, `date_admission`, `abonement`, `type_compte`
+        $query = "SELECT `id_adherent`, `prenom`, `date_admission`, `abonement`, `type_compte`
              FROM `adherent` WHERE `mail` = :mail AND `mdp` = :password";
 
         $statement = $this->connection->getConnection()->prepare($query);

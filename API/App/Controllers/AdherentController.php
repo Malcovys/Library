@@ -4,8 +4,8 @@ function auth() {
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-        $data = json_decode(file_get_contents('php://input'), true);
-        // $data = ['email' => 'malcovys@gmail.com', 'password' => 'x2SQRGzLbV'];
+        // $data = json_decode(file_get_contents('php://input'), true);
+        $data = ['email' => 'malcovys@gmail.com', 'password' => 'x2SQRGzLbV'];
             // $mamitihana = auPrMUwQC9
 
         if ( !empty($data['email']) && !empty($data['password'])) {
@@ -22,8 +22,9 @@ function auth() {
                 $adherent = [];
                 $adherent = $adherentRepository->getUser($email, $passwordHashed);
 
-                return ["token" => generateToken(
+                return [generateToken(
                     $adherent['id_adherent'],
+                    $adherent['prenom'],
                     ($adherent['abonement']) ? $adherent['abonement'] : 0,
                     $adherent['date_admission'],
                     $adherent['type_compte']

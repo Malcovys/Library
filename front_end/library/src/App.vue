@@ -20,13 +20,28 @@ const authStore = useAuthStore()
     <MenuItem>
       <template
         #home_icon>
-        <router-link to="/home"><IconHome /></router-link>
+        <router-link 
+          to="/home"
+          class="my-2 rounded-full py-1 px-1 duration-300 hover:bg-rose-400 hover:text-white"
+          >
+          <IconHome />
+        </router-link>
       </template>
       <template #history_icon>
-        <router-link to="/history"><IconHistory /></router-link>
+        <router-link 
+          to="/history"
+          class="my-2 rounded-full py-1 px-1 duration-300 hover:bg-rose-400 hover:text-white"
+          >
+          <IconHistory />
+        </router-link>
       </template>
       <template #setting_icon>
-        <router-link to="/settings"><IconSetting /></router-link>
+        <router-link 
+          to="/settings"
+          class="my-2 rounded-full py-1 px-1 duration-300 hover:bg-rose-400 hover:text-white"
+          >
+          <IconSetting />
+        </router-link>
       </template>
     </MenuItem>
       <router-view></router-view>
@@ -40,6 +55,11 @@ const authStore = useAuthStore()
 <style scope>
 .bg-gradient-gray-white {
   background: #fff;
+}
+
+#nav a.router-link-exact-active {
+  color: white;
+  background: #fb7185;
 }
 
 @media (min-width: 640px) {

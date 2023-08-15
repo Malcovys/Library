@@ -58,12 +58,8 @@ export default {
       const authStore = useAuthStore()
 
       await authStore.getToken(this.email, this.password)
-
-
       
-      if(authStore.token) {
-
-        authStore.setAuthenticated(true)
+      if(authStore.isAuthenticated) {
 
         this.$router.push({ name: "Home"})
         

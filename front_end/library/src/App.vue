@@ -13,7 +13,7 @@ import Header from './components/Header.vue';
         :activeButton="activeButton"
         @update:activeButton="updateActiveButton">
         <template #home_icon>
-          <router-link to="/home"><IconHome /></router-link>
+          <router-link to="/"><IconHome /></router-link>
         </template>
         <template #history_icon>
           <router-link to="/history"><IconHistory /></router-link>

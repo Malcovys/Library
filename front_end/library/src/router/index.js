@@ -8,12 +8,12 @@ import SingIn from '../views/SingIn.vue'
 
 const  routes = [
     {
-        path:'/',
-        name:'SingIn',
-        component: SingIn
+        // path:'/',
+        // name:'SingIn',
+        // component: SingIn
     },
     {
-        path:'/home',
+        path:'/',
         name:'Home',
         component: Home
     },

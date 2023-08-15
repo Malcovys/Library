@@ -1,6 +1,6 @@
 <script setup>
-import IconSearch from '../components/icons/IconSearch.vue';
-import ButtonItem from '../components/items/ButtonItem.vue';
+import IconSearch from '../../components/icons/IconSearch.vue';
+import ButtonItem from '../../components/items/ButtonItem.vue';
 </script>
 
 <template>

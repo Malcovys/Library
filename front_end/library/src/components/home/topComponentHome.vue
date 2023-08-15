@@ -9,8 +9,8 @@
               <h1 class="md:text-5xl sm:text-4xl text-3xl 
                 font-bold font-serif mobile-title">Happy reading,</h1>
               <h1 class="md:text-5xl sm:text-4xl text-3xl 
-                font-bold font-serif mobile-title">Harvey</h1>
-              <p class="text-gray-700- py-2">Don't let the story end just yet. Continue reading your last book and immerse yourself in the world of literature</p>
+                font-bold font-serif mobile-title">{{ owner }}</h1>
+              <p class="text-gray-700- py-2">{{ quote }}</p>
       </div>
 
       <div class="sm:pl-[2em] sm:pt-9 sm:ml-[5em]">
@@ -33,10 +33,46 @@
                    </div>
                   </div>
                   <div class="">
-                    <p>azyt:bacyaibtyoi'ytiyaziytyoi:</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates est fugit dicta error alias cumque illum optio, numquam maxime dolores!</p>
                 </div>
               </div>
           </div>
       </div>
   </div>  
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      quote: 'The phoenix must to emerge',
+      owner: 'Janet Fitch',
+    };
+  },
+  mounted() {
+    this.fetchQuote();
+  },
+  methods: {
+    async fetchQuote() {
+      try {
+        const response = await fetch('https://quote-garden.onrender.com/api/v3/quotes');
+
+        if (response.ok) {
+          const data = await response.json();
+          const quotes = data.data;
+
+          if (quotes.length > 0) {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            const randomQuote = quotes[randomIndex];
+
+            this.quote = randomQuote.quoteText.trim();
+            this.owner = randomQuote.quoteAuthor.trim();
+          }
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    },
+  },
+};
+</script>

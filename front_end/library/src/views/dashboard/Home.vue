@@ -1,9 +1,9 @@
 <script setup>
-import topComponentHome from '../components/home/topComponentHome.vue';
-import PopularComponent from '../components/home/PopularComponent.vue';
-import NewCollection from '../components/home/NewCollection.vue';
-import Comment from '../components/home/Comment.vue';
-import Calandar from '../components/home/Calandar.vue';
+import topComponentHome from '../../components/home/topComponentHome.vue';
+import PopularComponent from '../../components/home/PopularComponent.vue';
+import NewCollection from '../../components/home/NewCollection.vue';
+import Comment from '../../components/home/Comment.vue';
+import Calandar from '../../components/home/Calandar.vue';
 </script>
 
 <template>

@@ -1,23 +1,20 @@
 <script setup>
-import Menu from './components/Menu.vue';
-import ApiTest from './view/ApiTest.vue';
-import SingIn from './view/SingIn.vue';
-import Header from './components/Header.vue';
-import Home from './view/Home.vue';
-
+import Dashboard from './views/Dashboard.vue';
 </script>
 
 <template>
-    <div class="bg-gradient-gray-white sm:bg-gradient-none">
-        <Menu/>
-        <Header/>
-        <Home/>
-    </div>
+<router-view></router-view>
 </template>
+
 
 <style scope>
 .bg-gradient-gray-white {
   background: #fff;
+}
+
+#nav a.router-link-exact-active {
+  color: white;
+  background: #f87171;
 }
 
 @media (min-width: 640px) {

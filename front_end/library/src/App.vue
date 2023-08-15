@@ -17,10 +17,9 @@ const authStore = useAuthStore()
     v-if="authStore.isAuthenticated" 
     class="bg-gradient-gray-white sm:bg-gradient-none min-h-screen">
     <Header/>
-    <MenuItem
-      :activeButton="activeButton"
-      @update:activeButton="updateActiveButton">
-      <template #home_icon>
+    <MenuItem>
+      <template
+        #home_icon>
         <router-link to="/home"><IconHome /></router-link>
       </template>
       <template #history_icon>
@@ -41,11 +40,6 @@ const authStore = useAuthStore()
 <style scope>
 .bg-gradient-gray-white {
   background: #fff;
-}
-
-#nav a.router-link-exact-active {
-  color: white;
-  background: #f87171;
 }
 
 @media (min-width: 640px) {

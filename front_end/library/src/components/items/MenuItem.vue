@@ -46,7 +46,7 @@ import IconMain from '../icons/IconMain.vue';
 <script>
 import { ref } from 'vue';
 
-const activeButton = ref(null);
+const activeButton = ref(0);
 
 const updateActiveButton = (index) => {
   activeButton.value = index;

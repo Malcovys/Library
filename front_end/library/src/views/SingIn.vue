@@ -5,15 +5,19 @@ import ButtonItem from '../components/items/ButtonItem.vue';
 
 <template>
     <div class="px-4 flex items-center justify-center">
-      <div class="md:mx-6 md:p-12">
-        <div class="text-center">
-          <h4 class="mt-12 pb-1 text-xl font-semibold text-slate-700">Library</h4>
+      <div class="md:mx-6 md:p-12 flex flex-col justify-self-center items-center">
+        <div class="flex flex-col">
+          <img
+            class="w-[5rem] h-[5rem]"
+            src="../assets/images/logo.png">
+          <h4 class="pb-1 text-xl font-semibold text-slate-700">Library</h4>
         </div>
-
         <form class="p-10 rounded-lg lg:w-[30em] md:w-[40em] shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]"
           @submit.prevent="handleSubmit">
+          <div v-if="error"
+            class="mt-2 text-red-600 font-bold sm:ml-[4rem]">{{ error }}</div>
           <!-- Email input -->
-          <div class="mt-8">
+          <div class="mt-4">
             <label class="text-sm">Email</label>
             <input type="email" name="email" class="w-full px-4 py-2 bg-gray-100 rounded-md" placeholder="E-mail" required
               v-model="email"/>
@@ -41,43 +45,26 @@ import ButtonItem from '../components/items/ButtonItem.vue';
 </template>
 
 <script>
-  import { API_URL } from '../config';
+import { useAuthStore } from '../stores/AuthStore';
 
-  export default {
-    data() {
-      return {
-        email: '',
-        password: '',
-        showPassword: false,
-        user: null,
-      };
+export default {
+  data() {
+    return {
+      email: '', password: '', showPassword: false, error: null
+    };
+  },
+  methods: {
+    async handleSubmit() {
+      const authStore = useAuthStore()
+
+      await authStore.getToken(this.email, this.password)
+      
+      if(authStore.token) {
+        authStore.setAuthenticated(true)
+      } else {
+        this.error = authStore.message
+      }
     },
-    methods: {
-      async fetchUserData() {
-        const data = { email: this.email, password: this.password };
-
-        try {
-          const response = await fetch(API_URL + 'auth', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-          });
-
-          if (response.ok) {
-            this.user = await response.json();
-          } else {
-            console.error('Login failed');
-          }
-        } catch (error) {
-          console.error('Error:', error);
-        }
-      },
-
-      handleSubmit() {
-        this.fetchUserData();
-      },
-    },
-  };
+  },
+};
 </script>

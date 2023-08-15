@@ -16,7 +16,7 @@ import IconMain from '../icons/IconMain.vue';
       >
         <div class="flex sm:flex-col">
           <a 
-            class="my-2 rounded-full py-1 px-1 duration-700 hover:bg-rose-400 hover:text-white"
+            class="my-2 rounded-full py-1 px-1 duration-300 hover:bg-rose-400 hover:text-white"
             :class="{ 'bg-rose-400 text-white': activeButton === 0 }"
             @click="updateActiveButton(0)"
           >
@@ -24,7 +24,7 @@ import IconMain from '../icons/IconMain.vue';
           </a>
   
           <a 
-            class="my-2 rounded-full py-1 px-1 duration-700 hover:bg-rose-400 hover:text-white"
+            class="my-2 rounded-full py-1 px-1 duration-300 hover:bg-rose-400 hover:text-white"
             :class="{ ' bg-rose-400 text-white': activeButton === 1 }"
             @click="updateActiveButton(1)"
           >
@@ -32,7 +32,7 @@ import IconMain from '../icons/IconMain.vue';
           </a>
           
           <a 
-            class="my-2 rounded-full py-1 px-1 duration-700 hover:bg-rose-400 hover:text-white"
+            class="my-2 rounded-full py-1 px-1 duration-300 hover:bg-rose-400 hover:text-white"
             :class="{ 'bg-rose-400 text-white': activeButton === 2 }"
             @click="updateActiveButton(2)"
           >
@@ -46,7 +46,7 @@ import IconMain from '../icons/IconMain.vue';
 <script>
 import { ref } from 'vue';
 
-const activeButton = ref(0);
+const activeButton = ref(null);
 
 const updateActiveButton = (index) => {
   activeButton.value = index;

@@ -22,16 +22,16 @@ function auth() {
                 $adherent = [];
                 $adherent = $adherentRepository->getUser($email, $passwordHashed);
 
-                return generateToken(
+                return ["token" => generateToken(
                     $adherent['id_adherent'],
                     ($adherent['abonement']) ? $adherent['abonement'] : 0,
                     $adherent['date_admission'],
                     $adherent['type_compte']
-                );
+                )];
                
             }
 
-            return ['404' => 'Mot de passe ou email incorrect'];
+            return ['message' => 'Mot de passe ou email incorrect'];
     
         }
     

@@ -7,7 +7,7 @@ function ajouterLivre() {
     }
 
     if (!$data = json_decode(file_get_contents('php://input'), true)){
-        return ['message' => 'parametres manquant'];;
+        return ['message' => 'parametres manquant'];
     }
 
     // $description = "An aviator whose plane is forced down in the Sahara Desert encounters a little prince from a small planet who relates his adventures in seeking the secret of what is important in life. Howard's new translation of this beloved classic beautifully reflects Saint-Exupery's unique, gifted style. Color and b&w illustrations.";

@@ -1,6 +1,6 @@
 <template>
-    <div class="px-5">
-        <img class="enlarge-image h-[13rem]
+    <div class="px-[6.2em]">
+        <img class="enlarge-image w-[20rem] h-[14rem]
         shadow-[rgba(0,_0,_0,_0.2)_0px_60px_40px_-7px]" 
         :src="imageSrc">
         <h2 class="text-gray-900 text-lg title-font font-medium mb-3">{{ title }}</h2>

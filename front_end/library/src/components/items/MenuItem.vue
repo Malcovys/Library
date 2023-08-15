@@ -11,8 +11,8 @@ import IconMain from '../icons/IconMain.vue';
           fixed bottom-2
           bg-stone-200
           rounded-full sm:rounded-none
-          w-[15em] sm:w-20 sm:h-screen
-          flex items-center justify-center"
+          w-[15em] sm:w-20 sm:h-screen md:lg:pt-[5em] sm:pt-[6em] flex justify-center
+          "
       >
         <div class="flex sm:flex-col">
           <a 

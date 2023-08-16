@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { API_URL } from '../composables/useApiUrl'
 
 export const useAuthStore = defineStore("authStore", {
-    state: () => ({ 
+    state: () => ({
         isAuthenticated: JSON.parse(window.localStorage.getItem('authenticated')) || null,
         token: window.localStorage.getItem('token') || null,
         message: null,

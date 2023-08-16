@@ -9,11 +9,11 @@ const show = ref(0)
       <div class="w-full px-3">
         <nav class="relative flex flex-row items-center justify-between px-1 py-3">
           <div class="container px-4 mx-auto flex flex-row items-center justify-between">
-            <div class="relative max-w-md w-full ">
+            <div class="relative max-w-md w-full">
               <div class="absolute top-1 left-2 inline-flex items-center p-2">
                 <IconSearch/>
               </div>
-              <input class="w-full h-10 pl-10 pr-4 py-1 text-base placeholder-gray-500 border rounded-full" type="search" placeholder="Chercher un livre">
+              <input class="w-full h-10 pl-10 pr-4 py-1 text-base placeholder-gray-500 border rounded-full bg-stone-200" type="search" placeholder="Chercher un livre">
             </div>
             <div class="flex lg:flex-grow items-center">
               <ul class="flex flex-row lg:flex-row list-none ml-auto">
@@ -43,8 +43,3 @@ const show = ref(0)
     </div>
   </header>
 </template>
-
-<script>
-import IconSearch from './icons/IconSearch.vue';
-import IconNotification from './icons/IconNotification.vue';
-</script>

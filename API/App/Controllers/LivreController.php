@@ -7,28 +7,28 @@ function ajouterLivre() {
         return ["message" => "Mauvaise requête"];
     }
 
-    if (!$data = json_decode(file_get_contents('php://input'), true)){
-        return ['message' => 'parametres manquant'];
-    }
+    // if (!$data = json_decode(file_get_contents('php://input'), true)){
+    //     return ['message' => 'parametres manquant'];
+    // }
 
-    // $description = "An aviator whose plane is forced down in the Sahara Desert encounters a little prince from a small planet who relates his adventures in seeking the secret of what is important in life. Howard's new translation of this beloved classic beautifully reflects Saint-Exupery's unique, gifted style. Color and b&w illustrations.";
-    // $img = "https://books.google.com/books/content?id=vlr0uqedlWcC&printsec=frontcover&img=1&zoom=1&source=gbs_api";
-    // $note = "The definitive edition of a worldwide classic, it will capture the hearts of readers of all ages.";
-    // $data = [
-    //     'livre' => [
-    //         'img' => $img,
-    //         'titre' => 'The Little Prince',
-    //         'auteur' => 'Antoine de Saint-Exupéry',
-    //         'date_publication' => '2000',
-    //         'note' => $note,
-    //         'description' => $description,
-    //         'categorie' => 'Young Adult Fiction',
-    //         'maison_edition' => 'Houghton Mifflin Harcourt',
-    //         'isbn' => '9780156012195',
-    //         'quantite' => 5
-    //     ],
-    //     'staff' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTEsImFib25lbWVudCI6MTIsImFkbWlzc2lvbiI6IjIwMjMtMDgtMDkiLCJ0eXBlX2NvbXB0ZSI6IkFETSJ9.Rcaqs5jDujKMEg9YgiBMdbO2F0NXvnEpltEy8cf0GDY'
-    // ];
+    $description = "An aviator whose plane is forced down in the Sahara Desert encounters a little prince from a small planet who relates his adventures in seeking the secret of what is important in life. Howard's new translation of this beloved classic beautifully reflects Saint-Exupery's unique, gifted style. Color and b&w illustrations.";
+    $img = "https://books.google.com/books/content?id=vlr0uqedlWcC&printsec=frontcover&img=1&zoom=1&source=gbs_api";
+    $note = "The definitive edition of a worldwide classic, it will capture the hearts of readers of all ages.";
+    $data = [
+        'livre' => [
+            'img' => $img,
+            'titre' => 'The Little Prince',
+            'auteur' => 'Antoine de Saint-Exupéry',
+            'date_publication' => '2000',
+            'note' => $note,
+            'description' => $description,
+            'categorie' => 'Young Adult Fiction',
+            'maison_edition' => 'Houghton Mifflin Harcourt',
+            'isbn' => '9780156012195',
+            'quantite' => 5
+        ],
+        'staff' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTEsImFib25lbWVudCI6MTIsImFkbWlzc2lvbiI6IjIwMjMtMDgtMDkiLCJ0eXBlX2NvbXB0ZSI6IkFETSJ9.Rcaqs5jDujKMEg9YgiBMdbO2F0NXvnEpltEy8cf0GDY'
+    ];
 
     $satff = decodeToken($data['staff']);
 
@@ -147,8 +147,6 @@ function livreInfos() {
     $livreRepository = new LivreRepository();
     $livreRepository->connection = new DatabaseConnection;
     $livre = $livreRepository->getLivre($isbn);
-
-    $livre = unsetIndexedItems($livre);
 
     $maison_edition_id = $livre['num_maison'];
     unset($livre['num_maison']);

@@ -71,6 +71,6 @@ class LivreRepository {
             'isbn' => $isbn
         ]);
 
-        return $statement->fetch();
+        return $statement->fetch(PDO::FETCH_ASSOC);
     }
 }

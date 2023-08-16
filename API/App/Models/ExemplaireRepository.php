@@ -91,4 +91,15 @@ class ExemplaireRepository
 
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getIsbn(string $id) {
+        $query = "SELECT `isbn` FROM `exemplaire` WHERE `num_exemplaire` = :id";
+
+        $statement = $this->connection->getConnection()->prepare($query);
+        $statement->execute([
+            'id' => $id
+        ]);
+
+        return $statement->fetchAll(PDO::FETCH_COLUMN);
+    }
 }

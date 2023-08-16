@@ -88,13 +88,14 @@ function removeDuplicatedItems(array $array, string $target) {
     foreach ($array as $exemplaire) {
         $key = $exemplaire[$target];
 
-        if (!isset($uniqueItems[$target])) {
-            $uniqueItems[$target] = $exemplaire;
+        if (!isset($uniqueItems[$key])) {
+            $uniqueItems[$key] = $exemplaire;
         }
     }
 
     return array_values($uniqueItems);
 }
+
 
 function validateGetRequest(array $keys) {
 
@@ -134,4 +135,18 @@ function filterAssociativeArrays($array) {
     }
 
     return $filteredArray;
+}
+
+function countOccurrences($array) {
+    $occurrences = array();
+    
+    foreach ($array as $item) {
+        if (isset($occurrences[$item])) {
+            $occurrences[$item]++;
+        } else {
+            $occurrences[$item] = 1;
+        }
+    }
+    
+    return $occurrences;
 }

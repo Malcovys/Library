@@ -17,13 +17,10 @@ const authStore = useAuthStore()
     v-if="authStore.isAuthenticated" 
     class="bg-gradient-gray-white sm:bg-gradient-none min-h-screen">
     <Header/>
-    <MenuItem>
-      <template
-        #home_icon>
-        <router-link 
-          to="/home"
-          class="my-2 rounded-full py-1 px-1 duration-300 hover:bg-rose-400 hover:text-white"
-          >
+    <main>
+      <MenuItem>
+      <template #home_icon>
+        <router-link to="/home" class="my-2 rounded-full py-1 px-1 duration-300 hover:bg-rose-400 hover:text-white">
           <IconHome />
         </router-link>
       </template>
@@ -44,7 +41,8 @@ const authStore = useAuthStore()
         </router-link>
       </template>
     </MenuItem>
-      <router-view></router-view>
+    <router-view></router-view>
+    </main>
   </div>
   <div v-else>
     <router-view></router-view>

@@ -5,7 +5,7 @@
         <img class="h-[10em] "
          :src="imageSrc">
       </div>
-      <h2 class="title-font mb-3">{{ title }}</h2>
+      <h2 class="title-font mb-3 text-center">{{ title }}</h2>
     </div>
   </template>
   

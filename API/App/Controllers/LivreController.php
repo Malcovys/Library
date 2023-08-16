@@ -7,28 +7,29 @@ function ajouterLivre() {
         return ["message" => "Mauvaise requête"];
     }
 
-    // if (!$data = json_decode(file_get_contents('php://input'), true)){
-    //     return ['message' => 'parametres manquant'];
-    // }
+    if (!$data = json_decode(file_get_contents('php://input'), true)){
+        return ['message' => 'parametres manquant'];
+    }
 
-    $description = "An aviator whose plane is forced down in the Sahara Desert encounters a little prince from a small planet who relates his adventures in seeking the secret of what is important in life. Howard's new translation of this beloved classic beautifully reflects Saint-Exupery's unique, gifted style. Color and b&w illustrations.";
-    $img = "https://books.google.com/books/content?id=vlr0uqedlWcC&printsec=frontcover&img=1&zoom=1&source=gbs_api";
-    $note = "The definitive edition of a worldwide classic, it will capture the hearts of readers of all ages.";
-    $data = [
-        'livre' => [
-            'img' => $img,
-            'titre' => 'The Little Prince',
-            'auteur' => 'Antoine de Saint-Exupéry',
-            'date_publication' => '2000',
-            'note' => $note,
-            'description' => $description,
-            'categorie' => 'Young Adult Fiction',
-            'maison_edition' => 'Houghton Mifflin Harcourt',
-            'isbn' => '9780156012195',
-            'quantite' => 5
-        ],
-        'staff' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTEsImFib25lbWVudCI6MTIsImFkbWlzc2lvbiI6IjIwMjMtMDgtMDkiLCJ0eXBlX2NvbXB0ZSI6IkFETSJ9.Rcaqs5jDujKMEg9YgiBMdbO2F0NXvnEpltEy8cf0GDY'
-    ];
+    // $description = "An aviator whose plane is forced down in the Sahara Desert encounters a little prince from a small planet who relates his adventures in seeking the secret of what is important in life. Howard's new translation of this beloved classic beautifully reflects Saint-Exupery's unique, gifted style. Color and b&w illustrations.";
+    // $img = "https://books.google.com/books/content?id=vlr0uqedlWcC&printsec=frontcover&img=1&zoom=1&source=gbs_api";
+    // $note = "The definitive edition of a worldwide classic, it will capture the hearts of readers of all ages.";
+    // $data = [
+    //     'livre' => [
+    //         'img' => $img,
+    //         'titre' => 'The Little Prince',
+    //         'auteur' => 'Antoine de Saint-Exupéry',
+    //         'date_publication' => '2000',
+    //         'note' => $note,
+    //         'description' => $description,
+    //         'categorie' => 'Young Adult Fiction',
+    //         'maison_edition' => 'Houghton Mifflin Harcourt',
+    //         'isbn' => '9780156012',
+    //         'nombre_page' => 100,
+    //         'quantite' => 5
+    //     ],
+    //     'staff' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTEsImFib25lbWVudCI6MTIsImFkbWlzc2lvbiI6IjIwMjMtMDgtMDkiLCJ0eXBlX2NvbXB0ZSI6IkFETSJ9.Rcaqs5jDujKMEg9YgiBMdbO2F0NXvnEpltEy8cf0GDY'
+    // ];
 
     $satff = decodeToken($data['staff']);
 
@@ -51,7 +52,8 @@ function ajouterLivre() {
         $livre_array['maison_edition'],
         $livre_array['isbn'],
         $livre_array['quantite'],
-        $livre_array['note']
+        $livre_array['note'],
+        $livre_array['nombre_page']
     );
 
     $maisonEditionRepositoy = new MaisonEditionRepositoy();
@@ -181,6 +183,7 @@ function arriageLivre() {
     $exemplaireRepository->connection = new DatabaseConnection();
 
     $duplicatedISBNInArray = $exemplaireRepository->getOneWeekInterval();
+
     $arrivage = removeDuplicatedItems($duplicatedISBNInArray, 'isbn');
 
     $livreRepository = new LivreRepository();
@@ -197,4 +200,65 @@ function arriageLivre() {
     }   
 
     return ['items' => $nouveauLivre];
+}
+
+function livrePopulaire() {
+
+    $verifiedRequest = validateGetRequest(['token']);
+    if($verifiedRequest !== true) {
+        return $verifiedRequest;
+   } 
+
+   $token = $_GET['token'];
+   $user = decodeToken($token);
+    if (!$user->id) {
+        return ['message' => 'utilisateur vide.'];
+    }
+    if(!verifieUser($user->id)) {
+        return ['message' => 'Utilisateur inconnu.'];
+    }
+
+    $empruntRepository = new EmpruntRepository();
+    $empruntRepository->connection = new DatabaseConnection();
+
+    # Prend les num_exemplaires emprent de d'une interval d'une semaine
+    if(!$exemplairesId= $empruntRepository->getIntervalOneMoth()) {
+        return ['message' => 'Not popular book this month'];
+    }
+
+    $exemplaireRepository = new ExemplaireRepository();
+    $exemplaireRepository->connection = new DatabaseConnection();
+
+    # prend l'isbn correspondant à chaque num_exemplaire
+    $exemplaires = array();
+    foreach($exemplairesId as $id) {
+        $isbn = $exemplaireRepository->getIsbn($id);
+        array_push($exemplaires, $isbn[0]);
+    }
+
+    # compte le nombre de repetition de chaque isbn
+    $isbnOccurence = countOccurrences($exemplaires);
+
+    # filtre le resutlat
+    $moyenne = count($exemplaires)/2;
+    $populaireIsbn = array_filter($isbnOccurence, function($value) use ($moyenne) {
+        return $value >= $moyenne;
+    });
+
+    $livreRepository = new LivreRepository();
+    $livreRepository->connection = new DatabaseConnection();
+
+    # Prendre les informations sur les isbn
+    $livrePopulaire = array();
+    foreach($populaireIsbn as $item => $occurence) {
+        $livre = $livreRepository->getLivre($item);
+        $livrePopulaire[] = [
+            'isbn' => $livre['isbn'],
+            'titre' => $livre['titre'],
+            'imglink' => $livre['img']
+        ];
+    } 
+
+    return ['items' => $livrePopulaire];
+    
 }

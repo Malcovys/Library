@@ -1,4 +1,6 @@
 <script setup>
+import IconNotification from './icons/IconNotification.vue';
+import IconSearch from './icons/IconSearch.vue';
 import { ref } from 'vue';
 const show = ref(0)
 </script>

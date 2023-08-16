@@ -53,4 +53,13 @@ class EmpruntRepository {
 
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function getIntervalOneMoth() {
+        $query = "SELECT `num_exemplaire`  FROM `emprunt` WHERE `date_emprunt` >=  DATE_SUB(NOW(), INTERVAL 30 DAY)";
+
+        $statement = $this->connection->getConnection()->prepare($query);
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_COLUMN);
+    }
 }

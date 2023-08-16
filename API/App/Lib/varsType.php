@@ -33,6 +33,7 @@ class Livre {
     public string $publication_date;
     public string $description;
     public string $categorie;
+    public int $nombre_page;
     public string $maison;
     public string $isbn;
     public int $quantite;
@@ -40,7 +41,8 @@ class Livre {
 
     public function __construct(
         string $img, string $titre, string $auteur, string $publication_date, 
-        string $description, string $categorie, string $maison, string $isbn, int $quantite, string $note
+        string $description, string $categorie, string $maison, string $isbn, int $quantite, string $note,
+        int $nombre_page
         )
     {
         $this->img = $img;
@@ -50,6 +52,7 @@ class Livre {
         $this->description = $description;
         $this->categorie = $categorie;
         $this->maison = $maison;
+        $this->nombre_page = $nombre_page;
         $this->isbn = $isbn;
         $this->quantite = $quantite; 
         $this->note = $note;

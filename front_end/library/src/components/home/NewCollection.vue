@@ -15,6 +15,7 @@ onMounted(async () => {
   fetch(url)
     .then(response => response.json())
     .then(data => {
+      console.log(data);
       bookItem.value = data.items;
     })
     .catch(error => {
@@ -31,15 +32,17 @@ onMounted(async () => {
             class="flex justify-center items-center h-[11em]">
             <IconScare class="w-[4rem] h-[4rem] rounded-lg text-gray-400 shadow-[rgba(0,_0,_0,_0.2)_0px_60px_40px_-7px]"/>
         </div>
-        <div v-else class="flex flex-col overflow-x-auto h-[10rem] items-center">
-            <div v-for="item in bookItem" :key="item.isbn">
-                <router-link :to="{ name: 'bookDetails', params: { id: item.isbn } }">
-                    <ScrollableHorizontalItemVue
-                :imageSrc="item.imglink"
-                :title="item.titre"
-                :page="item.nombre_page"/>
-                </router-link>
-            </div>
+        <div v-else class="flex flex-col overflow-x-auto h-[11rem] items-center">
+            <router-link
+                v-for="item in bookItem" :key="item.isbn"
+                    :to="{ name: 'bookDetails', params: { id: item.isbn } }"
+            >
+                <ScrollableHorizontalItemVue
+                    :imageSrc="item.imglink"
+                    :title="item.titre"
+                    :page="item.nombre_page"
+                />
+            </router-link>
         </div>
     </div>
 </template>

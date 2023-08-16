@@ -13,6 +13,7 @@ $routes = [
     '/livre/ajout' => 'ajouterLivre',
     '/livre/infos' => 'LivreInfos',
     '/livre/arrivage' => 'arriageLivre',
+    '/livre/populaire' => 'livrePopulaire',
     '/livre/empreunt/feuille' => 'feuilleEmprunt',
     '/adherent/post/avis' => 'posterAvis',
     '/livre/avis' => 'livreAvis',

@@ -6,8 +6,8 @@ class LivreRepository {
 
     public function create(Livre $livre, int $id_maisonEditon){
         
-        $query = "INSERT INTO `livre` (`isbn`, `titre`, `description`, `note`, `num_maison`, `categorie`, `quantite`, `date_publication`, `img`) 
-            VALUES (:isbn, :titre, :description, :note, :num_maison, :categorie, :quantite, :date_publication, :img) ";
+        $query = "INSERT INTO `livre` (`isbn`, `titre`, `description`, `note`, `nombre_page`, `num_maison`, `categorie`, `quantite`, `date_publication`, `img`) 
+            VALUES (:isbn, :titre, :description, :note, :page, :num_maison, :categorie, :quantite, :date_publication, :img) ";
 
         try {
             $statement = $this->connection->getConnection()->prepare($query);
@@ -16,6 +16,7 @@ class LivreRepository {
                 ':titre' => $livre->titre,
                 ':description' => $livre->description,
                 ':note' => $livre->note,
+                ':page' => $livre->nombre_page,
                 ':num_maison' => $id_maisonEditon,
                 ':categorie' => $livre->categorie,
                 ':quantite' => $livre->quantite,

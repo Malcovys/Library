@@ -82,4 +82,13 @@ class ExemplaireRepository
 
         return $statement->fetchAll(PDO::FETCH_COLUMN);
     }
+
+    public function getOneWeekInterval() {
+        $query = "SELECT `num_exemplaire`, `isbn`, `date_enregistrement`  FROM `exemplaire` WHERE `date_enregistrement` >=  DATE_SUB(NOW(), INTERVAL 7 DAY)";
+
+        $statement = $this->connection->getConnection()->prepare($query);
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

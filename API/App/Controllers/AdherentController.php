@@ -2,43 +2,51 @@
 
 function auth() {
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-        // $data = json_decode(file_get_contents('php://input'), true);
-        $data = ['email' => 'malcovys@gmail.com', 'password' => 'x2SQRGzLbV'];
-            // $mamitihana = auPrMUwQC9
-
-        if ( !empty($data['email']) && !empty($data['password'])) {
-
-            $email = $data['email'];
-            $password = $data['password'];
-
-            $adherentRepository = new AdherentRepository();
-            $adherentRepository->connection = new DatabaseConnection();
-        
-            $passwordHashed = $adherentRepository->getPassword($email);
-
-            if (password_verify($password, $passwordHashed)) {
-                $adherent = [];
-                $adherent = $adherentRepository->getUser($email, $passwordHashed);
-
-                return [generateToken(
-                    $adherent['id_adherent'],
-                    $adherent['prenom'],
-                    ($adherent['abonement']) ? $adherent['abonement'] : 0,
-                    $adherent['date_admission'],
-                    $adherent['type_compte']
-                )];
-               
-            }
-
-            return ['message' => 'Mot de passe ou email incorrect'];
-    
-        }
-    
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        return ['message' => 'Mauvaise requette'];
     }
 
-    return ['400' => 'Mauvaise requette'];
+   
+    $data = json_decode(file_get_contents('php://input'), true);
+    // $data = ['email' => 'malcovys@gmail.com', 'password' => 'x2SQRGzLbV'];
+        // $mamitihana = auPrMUwQC9
+
+    if (empty($data['password'])) {
+        return ["message" => "Mot de passe requis"];
+    }
+
+    if (empty($data['email'])) {
+        return ["message" => "Email requis"];
+    }
+
+    $email = $data['email'];
+    $password = $data['password'];
+
+    $adherentRepository = new AdherentRepository();
+    $adherentRepository->connection = new DatabaseConnection();
+
+    if(!$passwordHashed = $adherentRepository->getPassword($email)) {
+        return ["message" => "Email incorret"];
+    };
+
+
+
+    if (!password_verify($password, $passwordHashed)) {
+        return ['message' => 'Mot de passe incorrect'];
+    }
+
+    $adherent = [];
+    $adherent = $adherentRepository->getUser($email, $passwordHashed);
+
+    $token =  [generateToken(
+        $adherent['id_adherent'],
+        $adherent['prenom'],
+        ($adherent['abonement']) ? $adherent['abonement'] : 0,
+        $adherent['date_admission'],
+        $adherent['type_compte']
+    )];
+
+    return $token[0];
 }
 
 function inscription() {

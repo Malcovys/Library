@@ -12,11 +12,11 @@ $routes = [
     '/livre/retour' => 'rendre',
     '/livre/ajout' => 'ajouterLivre',
     '/livre/infos' => 'LivreInfos',
+    '/livre/arrivage' => 'arriageLivre',
     '/livre/empreunt/feuille' => 'feuilleEmprunt',
     '/adherent/post/avis' => 'posterAvis',
     '/livre/avis' => 'livreAvis',
     '/livre/populaire' => 'livrePopulaire',
-    '/livre/arrivage' => 'arriageLivre',
     '/livre/avis' => 'livreAvis',
     '/adherent/calendrier' => 'calandarAdherent',
     '/adherent/carte' => 'cardAdherent',
@@ -34,6 +34,7 @@ function routeToController($uri, $routes) {
         $response = $controller();
 
         echo json_encode($response);
+        // print_r($response);
 
 
     } else {

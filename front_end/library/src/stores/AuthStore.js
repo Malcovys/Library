@@ -9,37 +9,39 @@ export const useAuthStore = defineStore("authStore", {
     }),
     actions: {
         async getToken(email, password) {
+            const postData = { email: email, password: password };
 
-            const data = { email: email, password: password };
-
-            const response = await fetch(API_URL + 'adherent/auth', {
+            const url = API_URL+'adherent/auth'
+            const requestOption = {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(data)
-            })
-
-            const responseData = await response.json()
-
-            if(responseData.message){
-
-                this.message = responseData.message
-
-            } else {
-
-                this.token = responseData.token
-                this.setAuthenticated(true)
-
-                window.localStorage.setItem('token', responseData.token);
-                window.localStorage.setItem('authenticated', true);
-
+                body: JSON.stringify(postData)
             }
-            
+
+            fetch(url, requestOption)
+                .then(response => response.json())
+                .then(data => {
+                    this.treate(data);
+                    // console.log('Réponse du serveur :', data);
+                  })
+                .catch(error => {
+                    console.error('Erreur lors de l\'envoi POST :', error);
+                  })
         },
         setAuthenticated(state) {
-
             this.isAuthenticated = state
+        },
+        treate(responseData) {
+            if(responseData.message){
+                this.message = responseData.message
+            } else {
+                this.token = responseData.token
+                this.setAuthenticated(true)
+                window.localStorage.setItem('token', responseData.token);
+                window.localStorage.setItem('authenticated', true);
+            }
         }
     }
 })

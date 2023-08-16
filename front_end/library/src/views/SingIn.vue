@@ -15,7 +15,7 @@ import ButtonItem from '../components/items/ButtonItem.vue';
         <form class="p-10 rounded-lg lg:w-[30em] md:w-[40em] shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]"
           @submit.prevent="handleSubmit">
           <div v-if="error"
-            class="mt-2 text-red-600 font-bold sm:ml-[4rem]">{{ error }}</div>
+            class="mt-2 text-red-600 font-bold">{{ error }}</div>
           <!-- Email input -->
           <div class="mt-4">
             <label class="text-sm">Email</label>

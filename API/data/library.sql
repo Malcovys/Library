@@ -11,7 +11,7 @@ CREATE TABLE `ouvrage` (
 
 CREATE TABLE `livre` (
   `isbn` VARCHAR(20) PRIMARY KEY NOT NULL,
-  `tire` VARCHAR(30) NOT NULL,
+  `titre` VARCHAR(30) NOT NULL,
   `num_maison` INT NOT NULL,
   `categorie` VARCHAR(15) NOT NULL,
   `quantite` INT NOT NULL,

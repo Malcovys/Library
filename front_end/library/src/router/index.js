@@ -23,6 +23,7 @@ router.beforeEach((to, from, next) => {
     const user = useAuthStore()
 
    if (to.meta.requiresAuth && !user.isAuthenticated){ next({ name: "SingIn" }) } 
+   else if (!to.meta.requiresAuth && user.isAuthenticated) { next({ name: "Home" }) }
    else { next() }
    
 })

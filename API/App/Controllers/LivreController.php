@@ -1,5 +1,6 @@
 <?php
 
+
 function ajouterLivre() {
 
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -119,15 +120,13 @@ function ajouterLivre() {
     return ["new_exemplaire" => $exemplairesId];
 }
 
-function LivreInfos() {
+function livreInfos() {
 
-    if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
-        return ["message" => "Mauvaise requête"];
-    }
+   $verifiedRequest = validateGetRequest(['isbn','token']);
 
-    if (empty($_GET['isbn']) && empty($_GET['token'])) {
-        return ['message' => 'Paramaètres manquants'];
-    }
+   if($verifiedRequest !== true) {
+        return $verifiedRequest;
+   }
 
     $isbn = $_GET['isbn'];
     $token = $_GET['token'];
@@ -138,7 +137,7 @@ function LivreInfos() {
     $user = decodeToken($token);
     
     if (!$user->id) {
-        return ['message' => 'Données personnel manquantes'];
+        return ['message' => 'utilisateur vide.'];
     }
 
     if(!verifieUser($user->id)) {
@@ -162,4 +161,42 @@ function LivreInfos() {
 
     return $livre;
     
+}
+
+function arriageLivre() {
+
+    $verifiedRequest = validateGetRequest(['token']);
+    if($verifiedRequest !== true) {
+        return $verifiedRequest;
+   }
+
+   $token = $_GET['token'];
+   $user = decodeToken($token);
+    if (!$user->id) {
+        return ['message' => 'utilisateur vide.'];
+    }
+    if(!verifieUser($user->id)) {
+        return ['message' => 'Utilisateur inconnu.'];
+    }
+
+    $exemplaireRepository = new ExemplaireRepository();
+    $exemplaireRepository->connection = new DatabaseConnection();
+
+    $duplicatedISBNInArray = $exemplaireRepository->getOneWeekInterval();
+    $arrivage = removeDuplicatedItems($duplicatedISBNInArray, 'isbn');
+
+    $livreRepository = new LivreRepository();
+    $livreRepository->connection = new DatabaseConnection();
+    $nouveauLivre = array();
+    foreach($arrivage as $item) {
+        $livre = $livreRepository->getLivre($item['isbn']);
+        $nouveauLivre[] = [
+            'isbn' => $livre['isbn'],
+            'titre' => $livre['titre'],
+            'nombre_page' => $livre['nombre_page'],
+            'imglink' => $livre['img']
+        ];
+    }   
+
+    return ['items' => $nouveauLivre];
 }

@@ -40,9 +40,6 @@
 </template>
 
 <script>
-import { translate } from 'translate-google-api';
-
-
 export default {
 data() {
   return {

@@ -80,3 +80,58 @@ function unsetIndexedItems(array $array) {
     return $array;
 
 }
+
+function removeDuplicatedItems(array $array, string $target) {
+
+    $uniqueItems = array();
+
+    foreach ($array as $exemplaire) {
+        $key = $exemplaire[$target];
+
+        if (!isset($uniqueItems[$target])) {
+            $uniqueItems[$target] = $exemplaire;
+        }
+    }
+
+    return array_values($uniqueItems);
+}
+
+function validateGetRequest(array $keys) {
+
+    if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+        return ["message" => "Mauvaise requête"];
+    }
+
+    $missingKeys = array();
+
+    foreach ($keys as $key) {
+        if (empty($_GET[$key])) {
+            $missingKeys[] = $key;
+        }
+    }
+
+    if (!empty($missingKeys)) {
+        return ['message' => 'Paramètres manquants', 'missing_keys' => $missingKeys];
+    }
+
+    return true;
+}
+
+function filterAssociativeArrays($array) {
+    $filteredArray = array();
+
+    foreach ($array as $key => $value) {
+        if (is_array($value) && $value === array_values($value)) {
+            // Si la valeur est un tableau indexé, la conserver
+            $filteredArray[$key] = $value;
+        } elseif (is_array($value)) {
+            // Si la valeur est un tableau associatif, filtrer récursivement
+            $filteredValue = filterAssociativeArrays($value);
+            if (!empty($filteredValue)) {
+                $filteredArray[$key] = $filteredValue;
+            }
+        }
+    }
+
+    return $filteredArray;
+}

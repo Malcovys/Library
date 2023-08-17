@@ -6,7 +6,6 @@ function auth() {
         return ['message' => 'Mauvaise requette'];
     }
 
-   
     $data = json_decode(file_get_contents('php://input'), true);
     // $data = ['email' => 'malcovys@gmail.com', 'password' => 'x2SQRGzLbV'];
         // $mamitihana = auPrMUwQC9
@@ -29,8 +28,6 @@ function auth() {
         return ["message" => "Email incorret"];
     };
 
-
-
     if (!password_verify($password, $passwordHashed)) {
         return ['message' => 'Mot de passe incorrect'];
     }
@@ -45,8 +42,18 @@ function auth() {
         $adherent['date_admission'],
         $adherent['type_compte']
     )];
+    
+    $isAdmin = false;
+    if ($adherent['type_compte'] == "ADM") {
+        $isAdmin = true;
+    }
 
-    return $token[0];
+
+    return [
+        'user' => $adherent['prenom'], 
+        'isAdmin' => $isAdmin, 
+        'token' => $token[0]['token']
+    ];
 }
 
 function inscription() {

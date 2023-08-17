@@ -1,3 +1,13 @@
+<script setup>
+import { defineProps } from 'vue';
+
+const props = defineProps({
+  imageSrc: String,
+  title: String,
+  page: [String, Number]
+});
+</script>
+
 <template>
     <div class="flex ml-2 space-x-10 p-5 mt-2 sm:h-[7em] mb-5 sm:w-[37em]
         rounded-lg
@@ -14,14 +24,4 @@
       
     </div>
   </template>
-  
-  <script>
-  export default {
-    props: {
-      imageSrc: String,
-      title: String,
-      page: String,
-    },
-  };
-  </script>
   

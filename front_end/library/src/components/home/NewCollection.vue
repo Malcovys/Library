@@ -15,7 +15,6 @@ onMounted(async () => {
   fetch(url)
     .then(response => response.json())
     .then(data => {
-      console.log(data);
       bookItem.value = data.items;
     })
     .catch(error => {

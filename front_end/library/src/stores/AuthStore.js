@@ -3,7 +3,9 @@ import { API_URL } from '../composables/useApiUrl'
 
 export const useAuthStore = defineStore("authStore", {
     state: () => ({
-        isAuthenticated: JSON.parse(window.localStorage.getItem('authenticated')) || null,
+        user: window.localStorage.getItem('user') || null,
+        isAuthenticated: JSON.parse(window.localStorage.getItem('authenticated')) || false,
+        isAdmin: JSON.parse(window.localStorage.getItem('isAdmin')) || null,
         token: window.localStorage.getItem('token') || null,
         message: null,
     }),
@@ -35,12 +37,16 @@ export const useAuthStore = defineStore("authStore", {
         },
         treate(responseData) {
             if(responseData.message){
+
                 this.message = responseData.message
+
             } else {
-                this.token = responseData.token
-                this.setAuthenticated(true)
-                window.localStorage.setItem('token', responseData.token);
+                window.localStorage.setItem('user', responseData.user);
                 window.localStorage.setItem('authenticated', true);
+                window.localStorage.setItem('isAdmin', responseData.isAdmin);
+                window.localStorage.setItem('token', responseData.token);
+
+                this.isAuthenticated = true;
             }
         }
     }

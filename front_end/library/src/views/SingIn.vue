@@ -57,14 +57,13 @@ export default {
     async handleSubmit() {
       const authStore = useAuthStore()
 
-      await authStore.getToken(this.email, this.password)
+      authStore.getToken(this.email, this.password)
       
-      if(authStore.isAuthenticated) {
-
-        this.$router.push({ name: "Home"})
-        
+      if(!authStore.isAuthenticated) {
+        this.error = authStore.message 
       } else {
-        this.error = authStore.message
+        console.log('Hello');
+        this.$router.push({ name: "Home"})
       }
     },
   },

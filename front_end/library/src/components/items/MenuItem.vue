@@ -4,7 +4,7 @@ import IconMain from '../icons/IconMain.vue';
 
 <template>
     <div>
-      <IconMain class="z-10"/>
+      <IconMain class="z-10 absolute"/>
       <nav 
         class="border-solid border-2 sm:border-r-2 border-gray
           shadow-xl

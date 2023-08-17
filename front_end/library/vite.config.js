@@ -6,6 +6,9 @@ export default defineConfig({
   plugins: [
     vue(),
   ],
+  css: {
+    modules: false,
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))

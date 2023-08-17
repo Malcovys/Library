@@ -1,4 +1,4 @@
-User
+  User
 <script setup>
 import IconHome from './components/icons/IconHome.vue';
 import IconHistory from './components/icons/IconHistory.vue';
@@ -66,4 +66,6 @@ const authStore = useAuthStore()
   .bg-gradient-gray-white {
     background: linear-gradient(to right, #e7e5e4 55%, #fff 50%);
   }}
-</style>
+</style> 
+
+

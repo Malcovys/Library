@@ -9,7 +9,7 @@ import librarianActionComponent from './components/librarianActionComponent.vue'
 
 import { useAuthStore } from './stores/AuthStore'
 
-const authStore = useAuthStore()
+const authStore = useAuthStore();
 
 </script> 
 

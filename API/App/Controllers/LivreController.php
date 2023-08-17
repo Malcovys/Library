@@ -24,9 +24,9 @@ function ajouterLivre() {
     //         'description' => $description,
     //         'categorie' => 'Young Adult Fiction',
     //         'maison_edition' => 'Houghton Mifflin Harcourt',
-    //         'isbn' => '9780156012',
+    //         'isbn' => '97801',
     //         'nombre_page' => 100,
-    //         'quantite' => 5
+    //         'quantite' => 1
     //     ],
     //     'staff' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTEsImFib25lbWVudCI6MTIsImFkbWlzc2lvbiI6IjIwMjMtMDgtMDkiLCJ0eXBlX2NvbXB0ZSI6IkFETSJ9.Rcaqs5jDujKMEg9YgiBMdbO2F0NXvnEpltEy8cf0GDY'
     // ];
@@ -43,10 +43,12 @@ function ajouterLivre() {
 
     $livre_array = $data['livre'];
 
+    return['message' => $livre_array];
+    
     $livre = new Livre($livre_array['img'],
         $livre_array['titre'], 
         $livre_array['auteur'], 
-        $livre_array['date_publication'],
+        date('Y', strtotime($livre_array['date_publication'])),
         $livre_array['description'],
         $livre_array['categorie'],
         $livre_array['maison_edition'],

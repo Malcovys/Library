@@ -9,6 +9,7 @@ import UserCard from './header/UserCard.vue'
 
 const show = ref(0)
 
+// Nom de l'user a afficher
 const authStore = useAuthStore();
 </script>
 

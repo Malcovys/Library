@@ -10,8 +10,6 @@ const bookItem = ref(null);
 onMounted(async () => {
   const authStore = useAuthStore();
   const requestParameter = authStore.token;
-
-  console.log("NewCollection call, authStore:", authStore.token);
   
   const url = API_URL + 'livre/arrivage?token=' + requestParameter;
 

@@ -35,7 +35,6 @@ function routeToController($uri, $routes) {
         $response = $controller();
 
         echo json_encode($response);
-        // print_r($response);
 
 
     } else {

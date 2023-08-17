@@ -10,9 +10,12 @@ const bookItem = ref(null);
 onMounted(async () => {
   const authStore = useAuthStore();
   const requestParameter = authStore.token;
+
+  console.log("NewCollection call, authStore:", authStore.token);
+  
   const url = API_URL + 'livre/arrivage?token=' + requestParameter;
 
-  fetch(url)
+    fetch(url)
     .then(response => response.json())
     .then(data => {
       bookItem.value = data.items;

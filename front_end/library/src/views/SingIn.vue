@@ -55,15 +55,15 @@ export default {
   },
   methods: {
     async handleSubmit() {
-      const authStore = useAuthStore()
-
-      authStore.getToken(this.email, this.password)
+      const authStore = useAuthStore();
+      
+      // attend un retour de authStore
+      await authStore.getToken(this.email, this.password);
       
       if(!authStore.isAuthenticated) {
-        this.error = authStore.message 
+        this.error = authStore.message;
       } else {
-        console.log('Hello');
-        this.$router.push({ name: "Home"})
+        this.$router.push('/home');
       }
     },
   },

@@ -16,7 +16,7 @@ const authStore = useAuthStore()
 <template>
   <div id="nav" 
     v-if="authStore.isAuthenticated" 
-    class="bg-gradient-gray-white sm:bg-gradient-none min-h-screen">
+    class="bg-gradient-gray-white min-h-screen">
     <Header v-if="this.$route.path != '/settings'"/>
     <main>
       <MenuItem>

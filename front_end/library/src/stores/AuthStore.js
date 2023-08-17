@@ -14,6 +14,7 @@ export const useAuthStore = defineStore("authStore", {
             const postData = { email: email, password: password };
 
             const url = API_URL+'adherent/auth'
+
             const requestOption = {
                 method: 'POST',
                 headers: {
@@ -22,31 +23,37 @@ export const useAuthStore = defineStore("authStore", {
                 body: JSON.stringify(postData)
             }
 
-            fetch(url, requestOption)
+            // ! attendre la reponse du serveur
+            await fetch(url, requestOption)
                 .then(response => response.json())
                 .then(data => {
                     this.treate(data);
-                    // console.log('Réponse du serveur :', data);
                   })
                 .catch(error => {
                     console.error('Erreur lors de l\'envoi POST :', error);
                   })
         },
         setAuthenticated(state) {
-            this.isAuthenticated = state
+            this.isAuthenticated = state;
         },
         treate(responseData) {
             if(responseData.message){
 
-                this.message = responseData.message
+                this.message = responseData.message;
 
             } else {
+
+                // valeur qui vas être pris après rafraichissement de page
                 window.localStorage.setItem('user', responseData.user);
                 window.localStorage.setItem('authenticated', true);
                 window.localStorage.setItem('isAdmin', responseData.isAdmin);
                 window.localStorage.setItem('token', responseData.token);
 
+                // ! donner la valeur de dapart
                 this.isAuthenticated = true;
+                this.token = responseData.token;
+                this.user = responseData.user;
+                this.isAdmin = responseData.isAdmin;
             }
         }
     }

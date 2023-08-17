@@ -13,18 +13,18 @@ const show = ref(false)
       <div class="rounded-full fixed bottom-5 right-5 w-[3.2rem] bg-white-200
         shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)]">
         <div class="flex flex-col ">
-            <ul 
+            <ul id="#actionContainer"
                 v-if="show"
                 class="flex flex-col items-center my-3">
-                <button class="my-2 rounded-full py-1 px-1 duration-700 hover:bg-rose-400">
+                <router-link to="/user/register" class="my-2 rounded-full py-1 px-1 duration-700 hover:bg-rose-400">
                     <IconUserAdd/>
-                </button>
-                <button class="my-2 rounded-full py-1 px-1 duration-700 hover:bg-rose-400">
+                </router-link>
+                <router-link to="/book/add" class="my-2 rounded-full py-1 px-1 duration-700 hover:bg-rose-400">
                     <IconAddBook/>
-                </button>
-                <button class="my-2 rounded-full py-1 px-1 duration-700 hover:bg-rose-400">
+                </router-link>
+                <router-link to="/library/activiry" class="my-2 rounded-full py-1 px-1 duration-700 hover:bg-rose-400">
                     <IconActivities/>
-                </button>
+                </router-link>
             </ul>
             <button 
                 @click="show = !show"

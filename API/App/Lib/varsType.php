@@ -30,7 +30,7 @@ class Livre {
     public string $img;
     public string $titre;
     public string $auteur;
-    public string $publication_date;
+    public string $publication_date; // Ajout de la propriété publication_date
     public string $description;
     public string $categorie;
     public int $nombre_page;
@@ -58,6 +58,7 @@ class Livre {
         $this->note = $note;
     }
 }
+
 
 class Emprunt {
     public int $id_adherent;

@@ -6,8 +6,7 @@ import IconSetting from './components/icons/IconSetting.vue';
 import MenuItem from './components/items/MenuItem.vue';
 import Header from './components/Header.vue';
 import librarianActionComponent from './components/librarianActionComponent.vue';
-
-import { useAuthStore } from './stores/AuthStore'
+import { useAuthStore } from './stores/AuthStore';
 
 const authStore = useAuthStore();
 

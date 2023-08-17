@@ -1,9 +1,7 @@
 <script setup>
-
 import IconSearch from '../../components/icons/IconSearch.vue';
 import ButtonItem from '../../components/items/ButtonItem.vue';
-
-
+import SuccessPopUpItem from '../../components/items/SuccessPopUpItem.vue';
 </script>
 
 <template>
@@ -13,17 +11,26 @@ import ButtonItem from '../../components/items/ButtonItem.vue';
         :src="imageElement" 
         class="md:w-[20em] md:h-[20em] w-[10em] h-[11em]"
       >
-     </div> 
+    </div> 
 
-     <!-- <div v-if="message">
-        {{ message }}
-     </div> -->
+    <SuccessPopUpItem v-if="success">
+      <template #title>SUCCESS</template>
+      <template #content>
+        <div class="felx flex-col">
+          <p>Put the following copy number for each:</p>
+          <span>{{ success }}</span>
+        </div>
+      </template>
+      <template #btn-legent>OK</template>
+    </SuccessPopUpItem>
       
       <form 
         @submit.prevent="handleSubmit" 
         class=" bg-white m-2 md:ml-5 p-5 rounded-md 
           shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] ">
-          <h1 class="text-base font-medium">New book 📚</h1>
+          <h1 class="text-base font-medium mb-5">New book 📚</h1>
+
+          <span v-if="message" class="text-red-500 font-bold">{{ message }}</span>
           
           <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
             <div class="sm:col-span-4">
@@ -121,10 +128,7 @@ import ButtonItem from '../../components/items/ButtonItem.vue';
           </div>    
     </form>
   </div>
-  </template>
-
-
- 
+</template>
     
 <script>
 import { API_URL} from '../../composables/useApiUrl';
@@ -144,7 +148,8 @@ export default {
       description:'', 
       message: null,
       auteur: '',
-      nombre_page: null
+      nombre_page: null,
+      success: null
     }
   },
   methods: {
@@ -154,7 +159,7 @@ export default {
       .then(response => response.json())
       .then(data => {
         
-        console.log(data);
+        // console.log(data);
 
           if (data.items && data.items.length > 0) {
             const bookInfo = data.items[0].volumeInfo;
@@ -167,6 +172,12 @@ export default {
             this.description = bookInfo.description || 'Unknown';
             this.auteur = bookInfo.authors || 'Unknown';
             this.nombre_page = bookInfo.pageCount || 'Unknown';
+
+            this.message = null;
+
+          } else {
+            this.message = "Not found";
+            this.isbn = "";
           }
       })
       .catch(error => {
@@ -205,11 +216,15 @@ export default {
       await fetch(url, requestOption)
           .then(response => response.json())
           .then(data => {
+            // console.log(data);
             if(data.message){
-                this.message = data.message;
-                console.log(data.message);
-              } else {
-                this.message = 'Une erreur est survenue.'
+              this.message = data.message;
+              // console.log(data.message);
+            } else if(data.new) {
+              console.log(data.new);
+              this.success = data.new;
+            } else {
+                this.message = 'Une erreur est survenue.';
               }
             })
           .catch(error => { console.error('Error fetching data:', error); });

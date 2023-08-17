@@ -43,12 +43,15 @@ function ajouterLivre() {
 
     $livre_array = $data['livre'];
 
-    return['message' => $livre_array];
+    # On n'enregiste que l'année dans la base
+    $annee_pulication = date('Y', strtotime($livre_array['date_publication']));
     
-    $livre = new Livre($livre_array['img'],
+    # La reaison de la dernière erreur est : $livre_array['auteur'] est un tableau
+    $livre = new Livre(
+        $livre_array['img'],
         $livre_array['titre'], 
-        $livre_array['auteur'], 
-        date('Y', strtotime($livre_array['date_publication'])),
+        $livre_array['auteur'][0], 
+        $annee_pulication,
         $livre_array['description'],
         $livre_array['categorie'],
         $livre_array['maison_edition'],
@@ -78,7 +81,6 @@ function ajouterLivre() {
         if (!$livreRepository->create($livre, $id_maison)) {
 
             return ['message' => 'Livre non enregistré'];
-
         }
     } else {
 
@@ -105,7 +107,7 @@ function ajouterLivre() {
 
         if (!$auteurRepository->verifieAutor($livre->auteur)) {
             if (!$auteurRepository->create($livre->auteur)) {
-                return ['message' => 'Auteur non enregistré'];
+                return ['message' => 'Auteur non enregister.'];
             }
         }
 
@@ -121,7 +123,7 @@ function ajouterLivre() {
         }
     }
 
-    return ["new_exemplaire" => $exemplairesId];
+    return ["new" => $exemplairesId];
 }
 
 function livreInfos() {
@@ -201,7 +203,7 @@ function arriageLivre() {
         ];
     }   
 
-    return ['items' => $nouveauLivre];
+    return ['items' => array_reverse($nouveauLivre)];
 }
 
 function livrePopulaire() {

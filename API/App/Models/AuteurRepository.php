@@ -18,7 +18,7 @@ class AuteurRepository
 
         } catch (PDOException $e) {
 
-            return false;
+            return $e;
         }
 
     }

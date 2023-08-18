@@ -1,5 +1,5 @@
 <script setup>
-import { handleError, ref } from 'vue';
+import { ref } from 'vue';
 import IconCheck from '../icons/IconCheck.vue';
 
 const show = ref(true)

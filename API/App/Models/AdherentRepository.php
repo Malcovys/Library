@@ -104,4 +104,15 @@ class AdherentRepository {
         
         return $statement->fetchColumn(); 
     }
+
+    public function getById(int $id) {
+        $query = "SELECT `id_adherent`, `nom`, `prenom`, `mail` FROM `adherent` WHERE `id_adherent` = :id";
+
+        $statement = $this->connection->getConnection()->prepare($query);
+        $statement->execute([
+            'id' => $id
+        ]);
+        
+        return $statement->fetch(PDO::FETCH_ASSOC);
+    }
 }

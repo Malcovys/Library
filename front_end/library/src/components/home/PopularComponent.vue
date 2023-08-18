@@ -4,7 +4,7 @@ import ScrollableItem from '../items/ScrollableItem.vue';
 import { useAuthStore } from '../../stores/AuthStore';
 import { API_URL } from '../../composables/useApiUrl';
 
-const bookItem =ref(null);
+const bookItem =ref(0);
 
 onMounted(async () => {
 
@@ -18,7 +18,7 @@ onMounted(async () => {
       bookItem.value = data.items;
     })
     .catch(error => {
-      console.error('Erreur lors de l\'envoi POST :', error);
+      console.error('PopularComponent : Erreur lors de l\'envoi GET :', error);
     });
 })
 </script>

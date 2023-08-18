@@ -6,6 +6,7 @@ $uri = isset($_SERVER['REDIRECT_URL']) ? $_SERVER['REDIRECT_URL'] : $_SERVER['RE
 
 $routes = [
     '/' => 'test',
+    '/adherent' => 'adherentInfo',
     '/adherent/auth' => 'auth',
     '/adherent/inscription' => 'inscription',
     '/livre/pret' => 'emprunter',   

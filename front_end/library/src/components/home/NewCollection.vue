@@ -19,7 +19,7 @@ onMounted(async () => {
       bookItem.value = data.items;
     })
     .catch(error => {
-      console.error('Erreur lors de l\'envoi POST :', error);
+      console.error('NewCollection : Erreur lors de l\'envoi GET :', error);
     });
 });
 </script>

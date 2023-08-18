@@ -91,10 +91,7 @@ function inscription() {
         
                 if ($adherentRepository->create($adherent)) {
         
-                    return [
-                        'infos' => $data['adherent'],
-                        'password' => $password
-                    ];
+                    return ['password' => $password];
         
                 } else {
         
@@ -113,7 +110,7 @@ function inscription() {
         }
     }
 
-    return ['400' => 'Mauvaise requête'];
+    return ['message' => 'Mauvaise requête'];
 
 }
 
@@ -146,4 +143,33 @@ function verifieUser(int $id) {
 
     return false;
     
+}
+
+function adherentInfo() {
+
+    $verifiedRequest = validateGetRequest(['token']);
+    if($verifiedRequest !== true) {
+        return $verifiedRequest;
+   } 
+
+   $token = $_GET['token'];
+   $user = decodeToken($token);
+    if (!$user->id) {
+        return ['message' => 'utilisateur vide.'];
+    }
+    if(!verifieUser($user->id)) {
+        return ['message' => 'Utilisateur inconnu.'];
+    }
+
+    $adherentRepository = new AdherentRepository();
+    $adherentRepository->connection = new DatabaseConnection();
+
+    $user = $adherentRepository->getById($user->id);
+
+    if (!$user) {
+        return ['message' => 'Unkwon'];
+    }
+
+    return ['user' => $user];
+
 }

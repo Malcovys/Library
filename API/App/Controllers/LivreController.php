@@ -154,6 +154,10 @@ function livreInfos() {
     $livreRepository->connection = new DatabaseConnection;
     $livre = $livreRepository->getLivre($isbn);
 
+    if(!$livre) {
+        return ["message" => 'not Found'];
+    }
+
     $maison_edition_id = $livre['num_maison'];
     unset($livre['num_maison']);
 
@@ -162,6 +166,16 @@ function livreInfos() {
     $maison_edition = $maisonEditionRepositoy->getMaison($maison_edition_id);
 
     $livre += ['maison_edition' => $maison_edition];
+
+    $ouvrageRepository = new OuvrageRepository();
+    $ouvrageRepository->connection = new DatabaseConnection();
+    $idAuteur = $ouvrageRepository->getAuteurId($livre['isbn']);
+
+    $auteurRepository = new AuteurRepository();
+    $auteurRepository->connection = new DatabaseConnection();
+    $auteur = $auteurRepository->getName($idAuteur);
+
+    $livre += ['nom_auteur' => $auteur];
 
     return $livre;
     
@@ -265,4 +279,42 @@ function livrePopulaire() {
 
     return ['items' => $livrePopulaire];
     
+}
+
+function listLivre() {
+
+//     $verifiedRequest = validateGetRequest(['token']);
+//     if($verifiedRequest !== true) {
+//         return $verifiedRequest;
+//     } 
+
+//    $token = $_GET['token'];
+//    $user = decodeToken($token);
+
+//     if (!$user->id) {
+//         return ['message' => 'utilisateur vide.'];
+//     }
+//     if(!verifieUser($user->id)) {
+//         return ['message' => 'Utilisateur inconnu.'];
+//     }
+
+    $livreRepository = new LivreRepository();
+    $livreRepository->connection = new DatabaseConnection();
+    $listLivre = $livreRepository->getInfos();
+
+    return $listLivre;
+}
+
+
+function aleatoireLivre() {
+
+    $listLivre = listLivre();
+
+    if(!empty($listLivre['message'])) {
+        return $listLivre['message'];
+    }
+
+    $livreSelectionner = $listLivre[array_rand($listLivre)];
+
+    return $livreSelectionner;
 }

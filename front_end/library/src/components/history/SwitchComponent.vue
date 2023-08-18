@@ -1,53 +1,42 @@
 <script setup>
-import IconArrowRight from '../icons/IconArrowRight.vue';
-import IconArrowLeft from '../icons/IconArrowLeft.vue';
 import EnlargableItem from './items/EnlargableItem.vue';
+
+import { useAuthStore } from '../../stores/AuthStore';
+import { onMounted, ref } from 'vue';
+import { API_URL } from '../../composables/useApiUrl';
+
+
+const bookList = ref(null);
+
+onMounted(async() => {
+    const authStore = useAuthStore();
+    const token = authStore.token;
+    const url = API_URL + 'livre/list?token=' + token;
+
+    await fetch(url)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        bookList.value = data;
+        console.log(bookList);
+    })
+    .catch(error => {
+      console.error('SwitchComponent: Erreur lors de l\'envoi GET :', error);
+    });
+});
+
 </script>
 <template>
-  <div>
-    <div class="scroll-controls">
-      <button id="prevButton" class="border-solid border-2 rounded-full hover:bg-gray-300">
-          <IconArrowLeft/>
-      </button>
-      <button id="nextButton" class="border-solid border-2 rounded-full hover:bg-gray-300">
-          <IconArrowRight/>
-      </button>
-    </div>
     <section class="text-gray-600 body-font md:ml-[6em]">
     <div class="px-5 py-10 scrolling-container flex">
-          <EnlargableItem
-            imageSrc="src/assets/images/1200px-Fire_and_Blood.webp"
-            title="Fire and Bold"/>
-          <EnlargableItem
-          imageSrc="src/assets/images/1200px-Fire_and_Blood.webp"
-          title="Fire and Bold"/>
-          <EnlargableItem
-          imageSrc="src/assets/images/1200px-Fire_and_Blood.webp"
-          title="Fire and Bold"/>
-          <EnlargableItem
-          imageSrc="src/assets/images/1200px-Fire_and_Blood.webp"
-          title="Fire and Bold"/>
-          <EnlargableItem
-          imageSrc="src/assets/images/1200px-Fire_and_Blood.webp"
-          title="Fire and Bold"/>
-          <EnlargableItem
-            imageSrc="src/assets/images/1200px-Fire_and_Blood.webp"
-            title="Fire and Bold"/>
-          <EnlargableItem
-          imageSrc="src/assets/images/1200px-Fire_and_Blood.webp"
-          title="Fire and Bold"/>
-          <EnlargableItem
-          imageSrc="src/assets/images/1200px-Fire_and_Blood.webp"
-          title="Fire and Bold"/>
-          <EnlargableItem
-          imageSrc="src/assets/images/1200px-Fire_and_Blood.webp"
-          title="Fire and Bold"/>
-          <EnlargableItem
-          imageSrc="src/assets/images/1200px-Fire_and_Blood.webp"
-          title="Fire and Bold"/>
+      <router-link 
+        v-for="book in bookList" :key="book.isbn"
+        :to="{ name: 'bookDetails', params: { id: book.isbn } }"
+      >
+        <EnlargableItem class="enlarge-image" :imageSrc="book.img" :title="book.titre"/>
+      </router-link>
       </div>
   </section>
-  </div>
 </template>
 
 <style scoped>
@@ -86,42 +75,3 @@ import EnlargableItem from './items/EnlargableItem.vue';
   margin-left: 8px;
 }
 </style>
-<script>
-export default {
-
-  mounted() {
-    const images = document.querySelectorAll('.enlarge-image');
-    const prevButton = document.getElementById('prevButton');
-    const nextButton = document.getElementById('nextButton');
-    let currentIndex = 0;
-
-    function scrollLeft() {
-      if (currentIndex > 0) {
-        currentIndex--;
-        images[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-      }
-    }
-
-    function scrollRight() {
-      if (currentIndex < images.length - 1) {
-        currentIndex++;
-        images[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-      }
-    }
-
-    prevButton.addEventListener('click', scrollLeft);
-    nextButton.addEventListener('click', scrollRight);
-
-    images.forEach((image, index) => {
-      image.addEventListener('mouseenter', () => {
-        image.style.transform = 'scale(1.2)';
-      });
-
-      image.addEventListener('mouseleave', () => {
-        image.style.transform = 'scale(1)';
-      });
-    });
-  },
-
-};
-</script>

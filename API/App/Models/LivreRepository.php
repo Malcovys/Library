@@ -74,4 +74,13 @@ class LivreRepository {
 
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function getInfos() {
+        $query = "SELECT `titre`, `isbn`, `img`, `nombre_page`, `note` FROM `livre`";
+    
+        $statement = $this->connection->getConnection()->prepare($query);
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

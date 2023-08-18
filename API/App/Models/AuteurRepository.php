@@ -49,4 +49,15 @@ class AuteurRepository
 
         return $statement->fetchColumn();
     }
+
+    public function getName(int $id) {
+        $query = "SELECT `nom_auteur` FROM `auteur` WHERE `num_auteur` = :id";
+
+        $statement = $this->connection->getConnection()->prepare($query);
+        $statement->execute([
+            'id' => $id
+        ]);
+
+        return $statement->fetchColumn();
+    }
 }

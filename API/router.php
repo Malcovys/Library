@@ -9,21 +9,12 @@ $routes = [
     '/adherent' => 'adherentInfo',
     '/adherent/auth' => 'auth',
     '/adherent/inscription' => 'inscription',
-    '/livre/pret' => 'emprunter',   
-    '/livre/retour' => 'rendre',
     '/livre/ajout' => 'ajouterLivre',
     '/livre/infos' => 'LivreInfos',
     '/livre/arrivage' => 'arriageLivre',
     '/livre/populaire' => 'livrePopulaire',
-    '/livre/empreunt/feuille' => 'feuilleEmprunt',
-    '/adherent/post/avis' => 'posterAvis',
-    '/livre/avis' => 'livreAvis',
-    '/livre/populaire' => 'livrePopulaire',
-    '/livre/avis' => 'livreAvis',
-    '/adherent/calendrier' => 'calandarAdherent',
-    '/adherent/carte' => 'cardAdherent',
-    '/activite/emprunt' => 'empruntActivity',
-    '/activite/adherent' => 'adherentActivity',
+    '/livre/list' => 'listLivre',
+    '/livre/aleatoire' => 'aleatoireLivre',
 ];
 
 function routeToController($uri, $routes) {

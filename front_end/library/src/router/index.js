@@ -8,6 +8,7 @@ import Settings from '../views/dashboard/Settings.vue';
 import History from '../views/dashboard/History.vue';
 import SingIn from '../views/SingIn.vue';
 import BookDetails from '../views/BookDetails.vue';
+import LoanRegister from '../views/librarian/LoanRegister.vue';
 
 import AddUser from '../views/librarian/AddUser.vue';
 import AddBook from '../views/librarian/AddBook.vue';
@@ -37,9 +38,9 @@ const  routes = [
     { 
         path:'/book/add', name: "AddBook", component: AddBook, meta: { requiresAuth: true, requirePrivilege: true } 
     },
-    // { 
-    //     path:'/library/activiry', name: "Activity", component: Activity, meta: { requiresAuth: true, requirePrivilege: true } 
-    // },
+    { 
+        path:'/library/emprunt', name: "LoanRegister", component: LoanRegister, meta: { requiresAuth: true, requirePrivilege: true } 
+    },
 ];
 
 const router = createRouter({

@@ -39,4 +39,15 @@ class OuvrageRepository
         return false;
     }
 
+    public function getAuteurId(string $isbnLivre) {
+        $query = "SELECT `num_auteur` FROM `ouvrage` WHERE `isbn` = :isbn";
+    
+        $statement = $this->connection->getConnection()->prepare($query);
+        $statement->execute([
+            'isbn' => $isbnLivre
+        ]);
+    
+        return $statement->fetchColumn() ;
+    }
+
 }

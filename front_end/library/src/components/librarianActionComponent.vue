@@ -22,7 +22,7 @@ const show = ref(false)
                 <router-link to="/book/add" class="my-2 rounded-full py-1 px-1 duration-700 hover:bg-rose-400">
                     <IconAddBook/>
                 </router-link>
-                <router-link to="/library/activiry" class="my-2 rounded-full py-1 px-1 duration-700 hover:bg-rose-400">
+                <router-link to="/library/emprunt" class="my-2 rounded-full py-1 px-1 duration-700 hover:bg-rose-400">
                     <IconActivities/>
                 </router-link>
             </ul>

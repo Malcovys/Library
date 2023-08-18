@@ -1,52 +1,100 @@
-<template>
-    <div>
-        <div class="container grid md:grid-cols-2 items-center gap-3">
-          <div class="mx-auto md:basis-1/2 lg:basis-2/5 animate-movingY">
-            <img class="md:lg:sm:absolute z-1 top-20 md:w-[200px] sm:w-[200px] w-[150px]" src="../assets/images/Potter.webp" alt="coverBook">
-          </div>
+<script setup>
+import { useAuthStore } from '../stores/AuthStore';
+import { onMounted, ref, defineProps } from 'vue';
+import { API_URL } from '../composables/useApiUrl';
 
-          <div class="text-center md:basis-1/2 md:text-start lg:basis-3/5">
-            <h1 class="text-2xl font-bold">Harry Potter: Half Blood Prince</h1>
-            <p class="text-gray-700 py-2">JK Rowling</p>
-            <p class="pb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, libero magni? Fugiat perspiciatis eius, sequi aliquid ullam dolorem temporibus voluptate corrupti fugit saepe sunt unde culpa? Tenetur quos quod laudantium.</p>
-          </div>
-      </div>
-      <div class="container bg-white rounded-2xl md:lg:sm:mt-[7rem] md:lg:sm:m-[7rem] flex md:justify-between py-20" >
-        <div class="flex flex-row mx-16">
-          <div>
-            <p class="font-bold">Description</p>
-            <p class="md:lg:sm:mr-8 mr-8" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure explicabo eius ab earum sint quod soluta!
-              <br/>
-              Autem doloribus deleniti exercitationem dignissimos illo ad, eligendi hic ducimus distinctio aliquid animi nam!</p>
-              <div class=" container flex flex-1">
-                <img class="w-[50px] rounded-full gap-2" src="/src/assets/logo.jpg" alt="">
-                <p >Mamitiana</p>
-              </div>
-              <p class="text-center">Comments</p>
-              
-          </div>
-  
-          <div>
-            <p class="font-bold">Editors</p>
-            <br/>
-            <p>Jk Rowling [author] , Christopher Reath</p>
-            <br/>
-            <p class="font-bold">Languages</p>
-            <br/>
-            <p>Standard English and French</p>
-            <br/>
-            <p class="font-bold">Paperback</p>
-            <br/>
-            <p>Paper textutred, full colour , 345 pages </p>
-            <p>ISBN :40798249849840984</p>
+
+const props = defineProps(['id']);
+
+const bookDetails = ref(null);
+
+onMounted(async() => {
+    const authStore = useAuthStore();
+    const isbn = props.id;
+    const token = authStore.token;
+    const url = API_URL + 'livre/infos?token=' + token + '&isbn=' + isbn;
+
+    await fetch(url)
+    .then(response => response.json())
+    .then(data => {
+
+      console.log(data);
+
+      if(data.message) {
+
+        bookDetails.value = {
+          isNotFound: true
+        };
+      } else {
+        bookDetails.value = data;
+      }
+      
+      console.log(bookDetails);
+    })
+    .catch(error => {
+      console.error('BookDetails: Erreur lors de l\'envoi GET :', error);
+    });
+});
+</script>
+
+<template>
+  <div v-if="bookDetails"
+    class="flex flex-col h-screen+[2rem]">
+
+    <div class="grid md:grid-cols-2 items-center">
+      <div class="mx-auto md:basis-1/2 lg:basis-2/5">
+          <img 
+            class="md:lg:sm:absolute z-1 top-20 w-[12rem] h-[17rem]
+            shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] " 
+            :src="bookDetails.img" alt="coverBook">
+        </div>
+        <div class="text-center md:pl-[6.5em] md:basis-1/2 md:text-start lg:basis-3/5">
+          <h1 class="md:text-4xl text-2xl font-bold font-pacifico">{{ bookDetails.titre }}</h1>
+          <p  v-if="bookDetails.nom_auteur" class="text-gray-700 py-2">{{ bookDetails.nom_auteur }}</p>
+          <p class="pr-5">{{ bookDetails.note }}</p>
+        </div>
+
+    </div>
+
+    <div class="bg-white h-screen
+      shadow-[0px_10px_1px_rgba(221,_221,_221,_1),_0_10px_20px_rgba(204,_204,_204,_1)]
+      rounded-2xl ml-[7rem] mr-[2rem] mt-[8rem] p-10">
+    <div class="flex flex-row ml-16">
+      <div class="flex flex-col space-y-10 w-[50rem]">
+        <div class="flex flex-col">
+          <p class="font-bold">Description</p>
+          <p class="md:lg:sm:mr-8 pt-8 mr-8" >{{ bookDetails.description }}</p>
+        </div>
+        
+        <div>
+          <div class=" container flex flex-row pt-10">
+            <img class="w-[50px] h-[50px] rounded-full gap-2" src="../assets/images/deadpool.jpg" alt="">
+            <div class="flex flex-col">
+              <p class="pl-10 font-semibold" >Mamitiana</p>
+              <p class="text-center pl-10 pt-5">Comments</p>
+            </div>
           </div>
         </div>
+
+      </div>
+
+      <div class="flex flex-col space-y-[1rem]">
+        <p class="font-bold">Editors</p>
+        <p> {{ bookDetails.maison_edition }}</p>
+        <p class="font-bold">Details :</p>
+        <p>category : {{ bookDetails.categorie }}</p>
+        <p>Page count : {{ bookDetails.nombre_page }}</p>
+        <p>Publishing date : {{ bookDetails.date_publication }}</p>
+        <p class="font-bold">Paperback</p>
+        <p>ISBN : {{ bookDetails.isbn }}</p>
+      </div>
       </div>
     </div>
+  </div>
 </template>
 
-<script>
-export default {
-    props: ['id'],
+<style>
+.font-pacifico {
+font-family: 'Pacifico', cursive;
 }
-</script>
+</style>

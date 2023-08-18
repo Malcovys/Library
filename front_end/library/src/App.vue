@@ -1,7 +1,7 @@
 User
 <script setup>
 import IconHome from './components/icons/IconHome.vue';
-import IconHistory from './components/icons/IconHistory.vue';
+import IconBook from './components/icons/IconBook.vue';
 import IconSetting from './components/icons/IconSetting.vue';
 import MenuItem from './components/items/MenuItem.vue';
 import Header from './components/Header.vue';
@@ -29,7 +29,7 @@ const authStore = useAuthStore();
             to="/history"
             class="my-2 rounded-full py-1 px-1 duration-300 hover:bg-rose-400 hover:text-white"
             >
-            <IconHistory />
+            <IconBook />
           </router-link>
         </template>
         <template #setting_icon>

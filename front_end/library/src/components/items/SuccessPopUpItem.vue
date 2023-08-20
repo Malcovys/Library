@@ -24,7 +24,7 @@ function handleSubmit() {
                         <h1 class="font-bold text-xl">
                             <slot name="title"></slot>
                         </h1>
-                        <div class="text-gray-700">
+                        <div class="text-gray-700 flex-col items-center justify-center">
                             <slot name="content"></slot>
                         </div>
                     </div>

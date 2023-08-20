@@ -67,7 +67,12 @@ function emprunter() {
         return ['message' => "Echec de l'operation"];
     };
 
-    return ["message" => "Prêt enregistrer"];
+    return ["success" => [
+        "uid" => $emprunt->id_adherent,
+        "staff" => $satff->id,
+        "copybook" => $emprunt->num_exemplaire,
+        "deadline" => $emprunt->date_echeance,
+    ]];
 }
 
 function rendre() {

@@ -155,7 +155,12 @@ export default {
   methods: {
     async handleSearch() {
 
-      await fetch("https://www.googleapis.com/books/v1/volumes?q=isbn:"+this.isbn)
+      await fetch("https://www.googleapis.com/books/v1/volumes?q=isbn:"+this.isbn, 
+      {
+        headers: {
+          "Content-Type": "application/json;charset=utf-8"
+        }
+      })
       .then(response => response.json())
       .then(data => {
         

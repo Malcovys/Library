@@ -5,7 +5,7 @@ import NotFound from '../views/404/NotFound.vue';
 
 import Home from '../views/dashboard/Home.vue';
 import Settings from '../views/dashboard/Settings.vue';
-import History from '../views/dashboard/History.vue';
+import BookList from '../views/dashboard/BookList.vue';
 import SingIn from '../views/SingIn.vue';
 import BookDetails from '../views/BookDetails.vue';
 import LoanRegister from '../views/librarian/LoanRegister.vue';
@@ -21,7 +21,7 @@ const  routes = [
         path:'/home', name: "Home", component: Home, meta: { requiresAuth: true , requirePrivilege: false} 
     },
     { 
-        path:'/history', name: "History", component: History, meta: { requiresAuth: true, requirePrivilege: false } 
+        path:'/book/list', name: "BookList", component: BookList, meta: { requiresAuth: true, requirePrivilege: false } 
     },
     { 
         path:'/settings', name: "Settings", component: Settings, meta: { requiresAuth: true, requirePrivilege: false } 

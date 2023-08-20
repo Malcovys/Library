@@ -26,7 +26,7 @@ const authStore = useAuthStore();
         </template>
         <template #history_icon>
           <router-link 
-            to="/history"
+            to="/book/list"
             class="my-2 rounded-full py-1 px-1 duration-300 hover:bg-rose-400 hover:text-white"
             >
             <IconBook />

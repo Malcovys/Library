@@ -283,20 +283,20 @@ function livrePopulaire() {
 
 function listLivre() {
 
-//     $verifiedRequest = validateGetRequest(['token']);
-//     if($verifiedRequest !== true) {
-//         return $verifiedRequest;
-//     } 
+    $verifiedRequest = validateGetRequest(['token']);
+    if($verifiedRequest !== true) {
+        return $verifiedRequest;
+    } 
 
-//    $token = $_GET['token'];
-//    $user = decodeToken($token);
+   $token = $_GET['token'];
+   $user = decodeToken($token);
 
-//     if (!$user->id) {
-//         return ['message' => 'utilisateur vide.'];
-//     }
-//     if(!verifieUser($user->id)) {
-//         return ['message' => 'Utilisateur inconnu.'];
-//     }
+    if (!$user->id) {
+        return ['message' => 'utilisateur vide.'];
+    }
+    if(!verifieUser($user->id)) {
+        return ['message' => 'Utilisateur inconnu.'];
+    }
 
     $livreRepository = new LivreRepository();
     $livreRepository->connection = new DatabaseConnection();

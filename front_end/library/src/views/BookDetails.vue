@@ -18,7 +18,7 @@ onMounted(async() => {
     .then(response => response.json())
     .then(data => {
 
-      console.log(data);
+      // console.log(data);
 
       if(data.message) {
 
@@ -29,7 +29,7 @@ onMounted(async() => {
         bookDetails.value = data;
       }
       
-      console.log(bookDetails);
+      // console.log(bookDetails);
     })
     .catch(error => {
       console.error('BookDetails: Erreur lors de l\'envoi GET :', error);

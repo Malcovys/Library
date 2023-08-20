@@ -15,6 +15,7 @@ $routes = [
     '/livre/populaire' => 'livrePopulaire',
     '/livre/list' => 'listLivre',
     '/livre/aleatoire' => 'aleatoireLivre',
+    '/livre/emprunt' => 'emprunter',
 ];
 
 function routeToController($uri, $routes) {

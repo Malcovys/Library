@@ -5,7 +5,7 @@ import { useAuthStore } from '../stores/AuthStore';
 import IconNotification from './icons/IconNotification.vue';
 import IconSearch from './icons/IconSearch.vue';
 import UserCard from './header/UserCard.vue'
-
+import SearchBar from './header/SearchBar.vue'
 
 const show = ref(0)
 
@@ -14,7 +14,7 @@ const authStore = useAuthStore();
 </script>
 
 <template>
-  <header class="sm:pl-[4em] pl-[2em]">  
+  <header class="sm:pl-[6rem] pl-[2em]">  
     <div class="flex flex-row py-2">
       <div class="w-full px-3">
         <nav class="relative flex flex-row items-center justify-between px-1 py-3">
@@ -23,7 +23,7 @@ const authStore = useAuthStore();
               <div class="absolute top-1 left-2 inline-flex items-center p-2">
                 <IconSearch/>
               </div>
-              <input class="w-full h-10 pl-10 pr-4 py-1 text-base placeholder-gray-500 border rounded-full bg-stone-200" type="search" placeholder="Chercher un livre">
+              <SearchBar/>
             </div>
             <div class="flex lg:flex-grow items-center">
               <ul class="flex flex-row lg:flex-row list-none ml-auto">

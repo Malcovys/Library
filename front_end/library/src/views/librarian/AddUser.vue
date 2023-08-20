@@ -4,7 +4,8 @@ import SuccessPopUpItem from '../../components/items/SuccessPopUpItem.vue';
 </script>
 
 <template>
-  <SuccessPopUpItem v-if="success">
+  <div>
+    <SuccessPopUpItem v-if="success">
         <template #title>Member registred</template>
         <template #content>
           <p>Email : {{ mail }}</p>
@@ -12,25 +13,23 @@ import SuccessPopUpItem from '../../components/items/SuccessPopUpItem.vue';
         </template>
         <template #btn-legent>OK</template>
       </SuccessPopUpItem>
-    <div class="mx-auto p-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 
-        lg:mx-0 lg:max-w-none lg:grid-cols-2 py-1.5">
+      <div  class="flex items-center justify-center ml-7">
       
       <img 
-        class="mt-6 px-[2rem] py-[2rem] ml-[2rem]"
-        src="../../assets/images/membership.avif" >
-      <div class="lg:pr-8 lg:pt-4">
+        src="../../assets/images/add_adherent.png" >
 
       <form 
       @submit.prevent="handleSubmit" 
-      class="m-2 w-full p-5 rounded-md shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] bg-white"
+      class=" w-full
+        p-5 rounded-md shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] bg-white"
       >
-        <div class="border-b border-gray-900/10 pb-12">
-          <h1 class="text-base font-medium leading-7">Registration form</h1>
+        <div class="border-gray-900/10">
+          <h1 class="text-lg font-medium leading-7">Member register</h1>
 
           <span v-if="message" class="text-red-500 font-bold">{{ message }}</span>
 
-          <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-            <div class="sm:col-span-3">
+          <div class="mt-10 ">
+            <div>
               <label class="text-sm font-medium">Fist name</label>
               <div class="mt-2">
                 <input v-model="nom"
@@ -40,7 +39,7 @@ import SuccessPopUpItem from '../../components/items/SuccessPopUpItem.vue';
               </div>
             </div>
   
-            <div class="sm:col-span-3">
+            <div>
               <label class="text-sm font-medium">Last name</label>
               <div class="mt-2">
                 <input v-model="prenom"
@@ -50,7 +49,7 @@ import SuccessPopUpItem from '../../components/items/SuccessPopUpItem.vue';
               </div>
             </div>
   
-            <div class="sm:col-span-4">
+            <div>
               <label class="text-sm font-medium">Email</label>
               <div class="mt-2">
                 <input v-model="mail" 
@@ -60,52 +59,55 @@ import SuccessPopUpItem from '../../components/items/SuccessPopUpItem.vue';
               </div>
             </div>
   
-            <div class="sm:col-span-3">
-              <label for="country" class="text-sm font-medium">Privilège</label>
+            <div>
+              <label class="text-sm font-medium">Privilege</label>
               <div class="mt-2">
                 <select v-model="type_compte"
                    class="w-full p-2  py-1.5  sm:text-sm">
-                  <option value="ADR">Membership</option>
+                  <option value="ADR">Simple member</option>
                   <option  value="ADM">Librarian</option>
                 </select>
               </div>
             </div>
   
-            <div class="col-span-full flex">
-              <div class="sm:col-span-3 flex">
+            <div class="flex">
+              <div class=" flex">
                 <label class="text-sm font-medium self-center">Batch:</label>
-                <input type="text" v-model="lot" class="w-full p-2  py-1.5 border-1 border-b"
+                <input v-model="lot"
+                  type="text" 
+                  class="w-full p-2  py-1.5 border-1 border-b"
                 required/>
               </div>
-              <div class="sm:col-span-3 flex">
+              <div class="flex">
                 <label class="text-sm font-medium self-center">Neighborhood:</label>
-                <input type="text" v-model="quartier" class="w-full p-2  py-1.5 border-1 border-b"
+                <input v-model="quartier"
+                  type="text" class="w-full p-2  py-1.5 border-1 border-b"
                 required/>
               </div>
             </div>
     
-            <div class="sm:col-span-6 sm:col-start-1">
+            <div>
               <label class="block text-sm font-medium leading-6">Subscription (Month)</label>
               <div class="mt-2">
-                <input type="number" v-model="abonnement" 
-                class="w-full p-2 rounded-md border-0 py-1.5 ring-1 ring-inset ring-gray-300 
+                <input v-model="abonnement"
+                  type="number"  
+                  class="w-full p-2 rounded-md border-0 py-1.5 ring-1 ring-inset ring-gray-300 
                   focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6"
-                  required/>
+                required/>
               </div>
             </div>
           </div>
           <div class="pt-10">
             <ButtonItem>
-                <template #text>Registe</template>
+                <template #text>validate</template>
               </ButtonItem>
           </div>
           
         </div>
       </form>
-    </div>
   </div>
-  
-  </template>
+  </div>
+</template>
 
 <script>
 import { API_URL } from '../../composables/useApiUrl';
@@ -156,7 +158,7 @@ export default {
       .then(response => response.json())
       .then(data => {
 
-          console.log(data);
+          // console.log(data);
 
           if(data.message){
 

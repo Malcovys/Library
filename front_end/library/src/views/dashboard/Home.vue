@@ -7,7 +7,7 @@ import Calendar from '../../components/home/Calendar.vue';
 </script>
 
 <template>
-    <div class="sm:ml-[7rem]">
+    <div class="sm:ml-[8rem]">
         <topComponentHome/> 
         <div class="sm:flex">
             <div>

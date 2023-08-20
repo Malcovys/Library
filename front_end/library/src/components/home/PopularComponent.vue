@@ -1,4 +1,6 @@
 <script setup>
+import IconWallet from '../icons/IconWallet.vue';
+
 import { onMounted, ref } from 'vue';
 import ScrollableItem from '../items/ScrollableItem.vue';
 import { useAuthStore } from '../../stores/AuthStore';
@@ -15,7 +17,10 @@ onMounted(async () => {
   fetch(url)
     .then(response => response.json())
     .then(data => {
-      bookItem.value = data.items;
+      if(data.length > 0) {
+        bookItem.value = data.items;
+      } 
+      console.log(data);
     })
     .catch(error => {
       console.error('PopularComponent : Erreur lors de l\'envoi GET :', error);
@@ -28,12 +33,12 @@ onMounted(async () => {
     <div>
       <p class="md:text-2xl sm:text-2xl text-1xl top-2 font-bold mobile-title">Popular Now</p>
     </div>
-    <div v-if="!bookItem" class="px-5 py-10 sm:h-[14em] sm:w-[39em]">
-        <h1>Not book Item</h1>
+    <div v-if="!bookItem" class="px-5 py-10 sm:h-[14em] sm:w-[39em] flex flex-col items-center justify-center">
+        <IconWallet class="w-20 h-20 text-gray-300"/>
+        <p class="text-gray-500 font-medium">No popular book</p>
       </div>
-    <div v-else class="px-5 py-10 sm:h-[16em] sm:w-[39em] flex flex-row overflow-y-auto rounded-lg">
-      <div
-        class="flex flex-row sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6">
+    <div v-else class="px-5 py-10 sm:h-[17em] sm:w-[39em] flex flex-row overflow-y-auto rounded-lg">
+      <div class="flex flex-row sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6">
         <router-link 
          v-for="item in bookItem" :key="item.isbn"
           :to="{ name: 'bookDetails', params: { id: item.isbn } }"

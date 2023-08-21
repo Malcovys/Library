@@ -20,7 +20,7 @@ onMounted(async () => {
       if(data.length > 0) {
         bookItem.value = data.items;
       } 
-      console.log(data);
+      // console.log(data);
     })
     .catch(error => {
       console.error('PopularComponent : Erreur lors de l\'envoi GET :', error);

@@ -1,1 +1,0 @@
-export const items = ['token', 'authenticated', 'isAdmin', 'user'];
